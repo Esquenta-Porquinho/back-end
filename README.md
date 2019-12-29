@@ -4,7 +4,7 @@
 
 
 <div align="center">
-    <img src=".github\photo.png" alt="This is an image of a pig under a book with XXXX symbos in front of it">
+    <img src=".github\photo.png" alt="This is an image of a pig under a book with a gear symbol in front of it">
 </div> 
 
 
@@ -12,14 +12,14 @@
 
 
 ## :link: Useful links
-- [Back-End Repository](https://github.com/Esquenta-Porquinho/back-end)
+- [Front-end Repository](https://github.com/Esquenta-Porquinho/front-end)
 - [Documentation Repository](https://github.com/Esquenta-Porquinho/documentation)
 - [Another good link]()
 ***
 
 ## 🤝 Contributing
 
-Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/Esquenta-Porquinho/front-end/issues). 
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/Esquenta-Porquinho/back-end/issues). 
 ***
 
 ## Show your support ⭐️
