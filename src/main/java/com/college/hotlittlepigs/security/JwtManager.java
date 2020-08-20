@@ -32,10 +32,9 @@ public class JwtManager {
     }
 
     public Claims parseToken(String jwt) throws JwtException{
-        Claims claims = Jwts.parser()
+        return Jwts.parser()
                             .setSigningKey(SecurityConstant.API_KEY.getBytes())
                             .parseClaimsJws(jwt)
                             .getBody();
-        return claims;
     }
 }

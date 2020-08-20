@@ -13,9 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter @Setter
 public class Error implements Serializable{
-    /**
-     *
-     */
+
     private static final long serialVersionUID = 1L;
     
     private int code;

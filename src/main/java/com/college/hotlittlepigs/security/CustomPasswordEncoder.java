@@ -10,8 +10,7 @@ public class CustomPasswordEncoder implements PasswordEncoder{
 
     @Override
     public String encode(CharSequence rawPassword) {
-        String hash = HashUtil.getSecureHash(rawPassword.toString());
-        return hash;
+        return HashUtil.getSecureHash(rawPassword.toString());
     }
 
     @Override

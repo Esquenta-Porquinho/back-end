@@ -21,7 +21,7 @@ public class UserSaveDTO {
     @Size(min=7, max=99, message="Password size must be between 7 and 99")
     private String password;
     
-    public User transformToUser(){
+    public User toUser(){
         User user = new User(null, this.name, this.email, this.password, null);
         return user;
     }

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.college.hotlittlepigs.exception.Error;
+import com.college.hotlittlepigs.exception.JwtException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.http.HttpHeaders;
@@ -32,19 +33,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         String jwt = request.getHeader(HttpHeaders.AUTHORIZATION);
-        if(jwt == null || !jwt.startsWith(SecurityConstant.JWT_PROVIDER)){
-            Error error = new Error(HttpStatus.UNAUTHORIZED.value(), SecurityConstant.JWT_INVALID_MSG, new Date(), null);
-            PrintWriter writer = response.getWriter();
-
-            ObjectMapper mapper = new ObjectMapper();
-            String errorString = mapper.writeValueAsString(error);
-            writer.write(errorString);
-
-            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-            response.setStatus(HttpStatus.UNAUTHORIZED.value());
-
-            return;
-        }
+        if(jwt == null || !jwt.startsWith(SecurityConstant.JWT_PROVIDER)) throw new JwtException(SecurityConstant.JWT_INVALID_MSG);
 
         jwt = jwt.replace(SecurityConstant.JWT_PROVIDER, "");
 

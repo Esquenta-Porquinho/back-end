@@ -1,11 +1,10 @@
 package com.college.hotlittlepigs.exception;
 
-
-public class NotFoundException extends RuntimeException{
+public class JwtException extends RuntimeException{
     
     private static final long serialVersionUID = 1L;
 
-    public NotFoundException(String msg) {
+    public JwtException(String msg) {
         super(msg);
     }
 
