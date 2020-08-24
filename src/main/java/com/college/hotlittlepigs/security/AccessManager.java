@@ -7,14 +7,16 @@ import com.college.hotlittlepigs.user.User;
 import com.college.hotlittlepigs.user.UserRepository;
 import com.college.hotlittlepigs.user.enums.Role;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
+import lombok.AllArgsConstructor;
+
 @Component("accessManager")
+@AllArgsConstructor
 public class AccessManager {
     
-    @Autowired private UserRepository userRepository;
+    private UserRepository userRepository;
 
     public boolean isOwner(Long id){
         String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

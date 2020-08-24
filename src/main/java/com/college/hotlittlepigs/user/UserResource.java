@@ -15,7 +15,6 @@ import com.college.hotlittlepigs.user.dto.UserSaveDTO;
 import com.college.hotlittlepigs.user.dto.UserUpdateDTO;
 import com.college.hotlittlepigs.user.dto.UserUpdateRoleDTO;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -30,11 +29,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import lombok.AllArgsConstructor;
+
 @RestController
 @RequestMapping(value = "users")
+@AllArgsConstructor
 public class UserResource {
-    @Autowired private UserService userService;
-    @Autowired private JwtManager jwtManager;
+    private UserService userService;
+    private JwtManager jwtManager;
 
     @PostMapping
     public ResponseEntity<User> save(@RequestBody @Valid UserSaveDTO userDTO){
@@ -49,7 +51,6 @@ public class UserResource {
         User user = userDTO.toUser();
         user.setId(id);
         User updatedUser = userService.save(user);
-
         return ResponseEntity.ok(updatedUser);
     }
 
@@ -63,7 +64,6 @@ public class UserResource {
     @Secured({ "ROLE_ADMIN" })
     @GetMapping("/admin")
     public ResponseEntity<PageModel<User>> listAll(@RequestParam Map<String, String> params){
-
         PageRequestModel pr = new PageRequestModel(params);
         PageModel<User> pm = userService.listAll(pr);
         return ResponseEntity.ok(pm);
@@ -72,7 +72,6 @@ public class UserResource {
     @Secured({ "ROLE_ADMIN", "ROLE_MANAGER" })
     @GetMapping
     public ResponseEntity<PageModel<User>> listAllNotAdmin(@RequestParam Map<String, String> params){
-
         PageRequestModel pr = new PageRequestModel(params);
         PageModel<User> pm = userService.listAllNotAdmin(pr);
         return ResponseEntity.ok(pm);
@@ -87,11 +86,7 @@ public class UserResource {
     @Secured({ "ROLE_ADMIN", "ROLE_MANAGER" })
     @PatchMapping("/role/{id}")
     public ResponseEntity<?> updateRole(@PathVariable(name="id") Long id, @RequestBody @Valid UserUpdateRoleDTO userDTO){
-        User user = new User();
-        user.setId(id);
-        user.setRole(userDTO.getRole());
-        
-        userService.updateRole(user);
+        userService.updateRole(userDTO, id);
         return ResponseEntity.ok().build();
     }
 

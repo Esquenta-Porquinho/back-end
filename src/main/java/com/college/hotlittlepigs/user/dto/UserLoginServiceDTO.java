@@ -3,13 +3,12 @@ package com.college.hotlittlepigs.user.dto;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter @Getter
+@Data
 public class UserLoginServiceDTO {
     
     private String email;

@@ -2,7 +2,6 @@ package com.college.hotlittlepigs.security;
 
 import com.college.hotlittlepigs.user.UserService;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -16,12 +15,15 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import lombok.AllArgsConstructor;
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
+@AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
-    @Autowired private UserService userService;
-    @Autowired private CustomPasswordEncoder passwordEncoder;
+    private UserService userService;
+    private CustomPasswordEncoder passwordEncoder;
     
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

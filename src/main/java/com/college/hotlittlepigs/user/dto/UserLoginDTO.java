@@ -6,13 +6,12 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Setter @Getter
+@Data
 public class UserLoginDTO {
     
     @Email(message = "Invalid email address")

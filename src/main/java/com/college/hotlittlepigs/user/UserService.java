@@ -11,10 +11,10 @@ import com.college.hotlittlepigs.model.PageRequestModel;
 import com.college.hotlittlepigs.security.AccessManager;
 import com.college.hotlittlepigs.user.dto.UserLoginDTO;
 import com.college.hotlittlepigs.user.dto.UserLoginServiceDTO;
+import com.college.hotlittlepigs.user.dto.UserUpdateRoleDTO;
 import com.college.hotlittlepigs.user.enums.Role;
 import com.college.hotlittlepigs.user.util.HashUtil;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.AccessDeniedException;
@@ -29,16 +29,20 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import lombok.AllArgsConstructor;
+
 @Service
+@AllArgsConstructor
 public class UserService implements UserDetailsService {
 
-    @Autowired UserRepository userRepository;
-    @Autowired AccessManager accessManager;
-    @Autowired AuthenticationManager authManager;
+    private UserRepository userRepository;
+    private AccessManager accessManager;
+    private AuthenticationManager authManager;
 
 
-    public int updateRole(User user) {
-        Optional<User> result = userRepository.findById(user.getId());
+    public int updateRole(UserUpdateRoleDTO user, Long id) {
+
+        Optional<User> result = userRepository.findById(id);
         if(!result.isPresent()) throw new NotFoundException("User not found !");
         
         if(!accessManager.isAdmin()){
@@ -47,7 +51,7 @@ public class UserService implements UserDetailsService {
                 throw new AccessDeniedException("Access Denied");
         }
 
-        return userRepository.updateRole(user.getId(), user.getRole());
+        return userRepository.updateRole(id, user.getRole());
     }
 
     public User save(User user) {

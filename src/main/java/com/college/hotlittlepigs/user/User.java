@@ -12,19 +12,18 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.college.hotlittlepigs.user.enums.Role;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter @Setter
 @Entity(name="user")
 @Table(name="user")
+@Data 
 public class User implements Serializable{
 
     private static final long serialVersionUID = 1L;
@@ -39,8 +38,7 @@ public class User implements Serializable{
     @Column(length = 75, nullable = false, unique = true)
     private String email;
 
-    @Getter(onMethod = @__({@JsonIgnore}))
-    @Setter(onMethod = @__({@JsonProperty}))
+    @JsonProperty(access = Access.WRITE_ONLY)
     @Column(length = 100, nullable = false)
     private String password;
 

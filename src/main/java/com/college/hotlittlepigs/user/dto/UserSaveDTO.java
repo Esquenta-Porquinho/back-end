@@ -6,10 +6,10 @@ import javax.validation.constraints.Size;
 
 import com.college.hotlittlepigs.user.User;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter @Setter
+
+@Data
 public class UserSaveDTO {
     
     @NotBlank(message="Name is required")
