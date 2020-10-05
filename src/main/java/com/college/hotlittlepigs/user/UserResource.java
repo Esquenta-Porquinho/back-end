@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import com.college.hotlittlepigs.log.Log;
+import com.college.hotlittlepigs.log.LogService;
 import com.college.hotlittlepigs.model.PageModel;
 import com.college.hotlittlepigs.model.PageRequestModel;
 import com.college.hotlittlepigs.security.JwtManager;
@@ -40,6 +42,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class UserResource {
     private UserService userService;
+    private LogService logService;
     private JwtManager jwtManager;
     private AuthenticationManager authManager;
 
@@ -100,5 +103,15 @@ public class UserResource {
         return ResponseEntity.ok().build();
     }
 
+    @Secured({ "ROLE_ADMIN", "ROLE_MANAGER" })
+    @GetMapping("/logs/{id}")
+    public ResponseEntity<PageModel<Log>> listAllLogsByOwner(
+        @PathVariable("id") Long id,
+        @RequestParam Map<String, String> params
+    ) {
+        PageRequestModel pr = new PageRequestModel(params);
+        PageModel<Log> pm = logService.listAllLogsByOwner(id, pr);
+        return ResponseEntity.ok(pm);
+    }
 
 }

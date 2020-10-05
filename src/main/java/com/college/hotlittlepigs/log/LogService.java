@@ -27,7 +27,7 @@ public class LogService {
         return newLog;
     }
 
-    public PageModel<Log> listAllByOwnerId(Long id, PageRequestModel pr) {
+    public PageModel<Log> listAllLogsByOwner(Long id, PageRequestModel pr) {
         Pageable pageable = pr.toSpringPageRequest();
         Page<Log> page = logRepository.findAllByOwnerId(id, pageable);
 

@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.college.hotlittlepigs.exception.NotFoundException;
+import com.college.hotlittlepigs.log.Log;
 import com.college.hotlittlepigs.model.PageModel;
 import com.college.hotlittlepigs.model.PageRequestModel;
 import com.college.hotlittlepigs.security.AccessManager;
