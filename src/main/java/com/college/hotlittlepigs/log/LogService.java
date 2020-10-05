@@ -14,11 +14,12 @@ import java.util.Date;
 @AllArgsConstructor
 @Service
 public class LogService {
+
     private LogRepository logRepository;
 
     public Log save(String action, User owner){
         Log log = new Log();
-        log.setOwner_id(owner);
+        log.setOwner(owner);
         log.setDatetime(new Date());
         log.setDescription(action);
 

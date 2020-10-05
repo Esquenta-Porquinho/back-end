@@ -31,5 +31,5 @@ public class Log implements Serializable {
 
     @ManyToOne
     @JoinColumn(name="owner_id", nullable = false)
-    private User owner_id;
+    private User owner;
 }
