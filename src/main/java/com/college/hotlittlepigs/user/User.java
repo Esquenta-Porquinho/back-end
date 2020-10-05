@@ -10,6 +10,7 @@ import com.college.hotlittlepigs.log.Log;
 import com.college.hotlittlepigs.user.enums.Role;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -42,7 +43,7 @@ public class User implements Serializable{
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @JsonProperty(access = Access.WRITE_ONLY)
+    @JsonIgnore
     @OneToMany(mappedBy = "owner")
     private List<Log> logs = new ArrayList<Log>();
 

@@ -1,6 +1,8 @@
 package com.college.hotlittlepigs.log;
 
 import com.college.hotlittlepigs.user.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,6 +31,7 @@ public class Log implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date datetime;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="owner_id", nullable = false)
     private User owner;
