@@ -22,7 +22,7 @@ public class UserSaveDTO {
     private String password;
     
     public User toUser(){
-        User user = new User(null, this.name, this.email, this.password, null);
+        User user = new User(null, this.name, this.email, this.password, null, null);
         return user;
     }
 }

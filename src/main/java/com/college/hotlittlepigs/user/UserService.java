@@ -9,7 +9,6 @@ import com.college.hotlittlepigs.exception.NotFoundException;
 import com.college.hotlittlepigs.model.PageModel;
 import com.college.hotlittlepigs.model.PageRequestModel;
 import com.college.hotlittlepigs.security.AccessManager;
-import com.college.hotlittlepigs.user.dto.UserLoginDTO;
 import com.college.hotlittlepigs.user.dto.UserLoginServiceDTO;
 import com.college.hotlittlepigs.user.dto.UserUpdateRoleDTO;
 import com.college.hotlittlepigs.user.enums.Role;
@@ -18,12 +17,8 @@ import com.college.hotlittlepigs.user.util.HashUtil;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -37,8 +32,6 @@ public class UserService implements UserDetailsService {
 
     private UserRepository userRepository;
     private AccessManager accessManager;
-    private AuthenticationManager authManager;
-
 
     public int updateRole(UserUpdateRoleDTO user, Long id) {
 
@@ -106,14 +99,7 @@ public class UserService implements UserDetailsService {
         return UserSpring;
     }
     
-    public UserLoginServiceDTO login(UserLoginDTO user){
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
-        Authentication auth = authManager.authenticate(token);
-        SecurityContextHolder.getContext().setAuthentication(auth);
-        
-        org.springframework.security.core.userdetails.User userSpring = 
-                (org.springframework.security.core.userdetails.User) auth.getPrincipal();
-
+    public UserLoginServiceDTO login(org.springframework.security.core.userdetails.User userSpring){
         String email = userSpring.getUsername();
         List<String> roles = userSpring.getAuthorities()
                                         .stream()

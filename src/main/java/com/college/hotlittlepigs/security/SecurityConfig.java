@@ -22,6 +22,7 @@ import lombok.AllArgsConstructor;
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 @AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
+    
     private UserService userService;
     private CustomPasswordEncoder passwordEncoder;
     
