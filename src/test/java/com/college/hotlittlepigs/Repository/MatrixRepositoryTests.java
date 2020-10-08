@@ -26,7 +26,7 @@ public class MatrixRepositoryTests {
 
     @Test
     public void saveTest(){
-        Matrix newMatrix = new Matrix(null, 39, true);
+        Matrix newMatrix = new Matrix(null, 39, true, null);
         Matrix createdMatrix = matrixRepository.save(newMatrix);
 
         assertThat(createdMatrix.getId()).isEqualTo(1L);    

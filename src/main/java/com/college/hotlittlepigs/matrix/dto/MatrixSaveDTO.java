@@ -14,7 +14,7 @@ public class MatrixSaveDTO {
 
 
     public Matrix toMatrix(){
-        Matrix matrix = new Matrix(null, this.number, true);
+        Matrix matrix = new Matrix(null, this.number, true, null);
         return matrix;
     }
 }
