@@ -26,7 +26,7 @@ public class BoxRepositoryTests {
 
     @Test
     public void saveTest(){
-        Box newBox = new Box(null, 2, "Piso", "4", true);
+        Box newBox = new Box(null, 2, "Piso", "4", true, null);
         Box createdBox = boxRepository.save(newBox);
 
         assertThat(createdBox.getId()).isEqualTo(1L);    
