@@ -2,7 +2,6 @@ package com.college.hotlittlepigs.Repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.Date;
 import java.util.Optional;
 
 import com.college.hotlittlepigs.box.Box;
@@ -27,7 +26,7 @@ public class BoxRepositoryTests {
 
     @Test
     public void saveTest(){
-        Box newBox = new Box(null, 2, "Piso", "4", true, null, null);
+        Box newBox = new Box(null, 2, "Piso", "4", true, null, null, null);
         Box createdBox = boxRepository.save(newBox);
 
         assertThat(createdBox.getId()).isEqualTo(1L);    
