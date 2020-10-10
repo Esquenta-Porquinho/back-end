@@ -14,6 +14,7 @@ import javax.persistence.Table;
 
 import com.college.hotlittlepigs.gestation.Gestation;
 import com.college.hotlittlepigs.parameters.Parameters;
+import com.college.hotlittlepigs.sensors.Sensors;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
@@ -53,4 +54,7 @@ public class Box implements Serializable{
     @OneToMany(mappedBy = "box")
     private List<Parameters> parameters = new ArrayList<Parameters>();
     
+    @JsonIgnore
+    @OneToMany(mappedBy = "box")
+    private List<Sensors> sensors = new ArrayList<Sensors>();
 }
