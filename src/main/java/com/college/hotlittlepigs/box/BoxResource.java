@@ -8,6 +8,7 @@ import com.college.hotlittlepigs.box.dto.BoxSaveDTO;
 import com.college.hotlittlepigs.box.dto.BoxUpdateDTO;
 import com.college.hotlittlepigs.model.PageModel;
 import com.college.hotlittlepigs.model.PageRequestModel;
+import com.college.hotlittlepigs.parameters.Parameters;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -75,5 +76,11 @@ public class BoxResource {
     public ResponseEntity<Box> activate(@PathVariable("id") Long id) {
         Box box = boxService.updateStatus(id, true);
         return ResponseEntity.ok(box);
+    }
+
+    @GetMapping("/{number}/parameters")
+    public ResponseEntity<Parameters> getParameters(@PathVariable("number") int number){
+        Parameters parameters = boxService.getParameters(number);
+        return ResponseEntity.ok(parameters);
     }
 }
