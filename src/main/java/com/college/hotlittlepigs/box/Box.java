@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.college.hotlittlepigs.gestation.Gestation;
+import com.college.hotlittlepigs.parameters.Parameters;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
@@ -47,4 +48,9 @@ public class Box implements Serializable{
     @JsonIgnore
     @OneToMany(mappedBy = "box")
     private List<Gestation> gestations = new ArrayList<Gestation>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "box")
+    private List<Parameters> parameters = new ArrayList<Parameters>();
+    
 }
