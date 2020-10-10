@@ -21,6 +21,6 @@ public class BoxSaveDTO {
 
 
     public Box toBox(){
-        return new Box(null, this.number, this.controller, this.area, true, null, null);
+        return new Box(null, this.number, this.controller, this.area, true, null, null, null);
     }
 }
