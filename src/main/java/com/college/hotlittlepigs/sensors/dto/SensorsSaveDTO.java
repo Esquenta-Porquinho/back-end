@@ -17,14 +17,10 @@ public class SensorsSaveDTO {
     @NotBlank(message = "The sensor's name is required !!")
     private String name;
 
-<<<<<<< Updated upstream
     @NotNull(message = "The box that's the sensor belongs is required !!")
-=======
-    @NotNull(message = "The box that's sensor belongs is required !!")
->>>>>>> Stashed changes
     private Box box;
 
     public Sensors toSensors(){
-        return new Sensors(null, this.dataType, this.name, false, this.box);
+        return new Sensors(null, this.dataType, this.name, false, this.box, null);
     }
 }
