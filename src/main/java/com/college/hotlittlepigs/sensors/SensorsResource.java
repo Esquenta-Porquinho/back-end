@@ -68,11 +68,7 @@ public class SensorsResource {
     @GetMapping("/deactive")
     public ResponseEntity<PageModel<Sensors>> listAllDeactive(@RequestParam Map<String, String> params){
         PageRequestModel pr = new PageRequestModel(params);
-<<<<<<< Updated upstream
         PageModel<Sensors> pm = sensorsService.listAllByStatus(true, pr);
-=======
-        PageModel<Sensors> pm = sensorsService.listAllByStatus(false, pr);
->>>>>>> Stashed changes
         return ResponseEntity.ok(pm);
     }
 

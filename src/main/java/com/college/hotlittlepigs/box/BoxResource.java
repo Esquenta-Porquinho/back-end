@@ -10,6 +10,7 @@ import com.college.hotlittlepigs.model.PageModel;
 import com.college.hotlittlepigs.model.PageRequestModel;
 import com.college.hotlittlepigs.parameters.Parameters;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -36,7 +37,7 @@ public class BoxResource {
     public ResponseEntity<Box> save(@Valid @RequestBody BoxSaveDTO boxDTO){
         Box box = boxDTO.toBox();
         Box newBox = boxService.save(box);
-        return ResponseEntity.ok(newBox);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newBox);
     }
 
     @Secured({ "ROLE_MANAGER", "ROLE_SIMPLE" })
