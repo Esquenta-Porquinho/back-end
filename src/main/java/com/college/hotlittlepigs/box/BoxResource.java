@@ -79,6 +79,7 @@ public class BoxResource {
         return ResponseEntity.ok(box);
     }
 
+    @Secured({ "ROLE_ADMIN" })
     @GetMapping("/{number}/parameters")
     public ResponseEntity<Parameters> getParameters(@PathVariable("number") int number){
         Parameters parameters = boxService.getParameters(number);

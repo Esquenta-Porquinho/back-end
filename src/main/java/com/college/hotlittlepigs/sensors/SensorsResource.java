@@ -29,7 +29,7 @@ import lombok.AllArgsConstructor;
 public class SensorsResource {
     private SensorsService sensorsService;
 
-    @Secured({  "ROLE_ADMIN" })
+    @Secured({ "ROLE_ADMIN" })
     @PostMapping()
     public ResponseEntity<Sensors> save(@Valid @RequestBody SensorsSaveDTO sensorsSaveDTO){
         Sensors sensors = sensorsSaveDTO.toSensors();

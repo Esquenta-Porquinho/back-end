@@ -20,8 +20,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Table(name = "meansurement")
-@Entity(name= "meansurement")
+@Table(name = "measurement")
+@Entity(name= "measurement")
 public class Measurement implements Serializable{
 
     private static final long serialVersionUID = 1L;

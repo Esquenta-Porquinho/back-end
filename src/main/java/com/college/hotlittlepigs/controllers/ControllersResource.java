@@ -73,8 +73,8 @@ public class ControllersResource {
     }
 
     @Secured({ "ROLE_ADMIN" })
-    @GetMapping("/status/deactive")
-    public ResponseEntity<PageModel<Controllers>> listAllDeactiveStatus(@RequestParam Map<String, String> params){
+    @GetMapping("/status/inactive")
+    public ResponseEntity<PageModel<Controllers>> listAllInactiveStatus(@RequestParam Map<String, String> params){
         PageRequestModel pr = new PageRequestModel(params);
         PageModel<Controllers> pm = controllersService.listAllByStatus(false, pr);
         return ResponseEntity.ok(pm);
@@ -94,12 +94,14 @@ public class ControllersResource {
         return ResponseEntity.ok(controller);
     }
 
+    @Secured({ "ROLE_ADMIN" })
     @PatchMapping("/active/work/{id}")
     public ResponseEntity<Controllers> activateWork(@PathVariable("id") Long id){
         Controllers controller = controllersService.updateWork(id, true);
         return ResponseEntity.ok(controller);
     }
 
+    @Secured({ "ROLE_ADMIN" })
     @PatchMapping("/deactivate/work/{id}")
     public ResponseEntity<Controllers> deactivateWork(@PathVariable("id") Long id){
         Controllers controller = controllersService.updateWork(id, false);
@@ -116,6 +118,4 @@ public class ControllersResource {
         Controllers updateController = controllersService.update(id, controllers);
         return ResponseEntity.ok(updateController);
     }
-
-
 }
