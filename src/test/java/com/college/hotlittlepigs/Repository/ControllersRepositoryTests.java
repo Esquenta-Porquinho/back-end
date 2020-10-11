@@ -32,7 +32,7 @@ public class ControllersRepositoryTests {
         Optional<Box> requestBox = boxRepository.findById(1L);
         Box box = requestBox.get();
         
-        Controllers controllers = new Controllers(null,"Controlador Boiler", false, false, box);
+        Controllers controllers = new Controllers(null,"Controlador Boiler", false, box, null);
         Controllers createdControllers = controllersRepository.save(controllers);
         assertThat(createdControllers.getId()).isEqualTo(1L);    
     }

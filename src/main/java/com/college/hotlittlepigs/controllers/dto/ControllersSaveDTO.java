@@ -18,7 +18,7 @@ public class ControllersSaveDTO {
     private Box box;
 
     public Controllers toController(){
-        return new Controllers(null, this.name, false, false, this.box);
+        return new Controllers(null, this.name, false, this.box, null);
     }
 
 }

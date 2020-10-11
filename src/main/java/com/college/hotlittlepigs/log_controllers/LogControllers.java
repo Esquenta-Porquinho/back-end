@@ -1,8 +1,7 @@
-package com.college.hotlittlepigs.controllers;
+package com.college.hotlittlepigs.log_controllers;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,12 +10,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-import com.college.hotlittlepigs.box.Box;
-import com.college.hotlittlepigs.log_controllers.LogControllers;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.college.hotlittlepigs.controllers.Controllers;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,9 +23,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Table(name = "controllers")
-@Entity(name = "controllers")
-public class Controllers implements Serializable{
+@Table(name="log_controllers")
+@Entity(name= "log_controllers")
+public class LogControllers implements Serializable{
     
     private static final long serialVersionUID = 1L;
 
@@ -36,16 +34,13 @@ public class Controllers implements Serializable{
     private Long id;
 
     @Column(length = 45, nullable = false)
-    private String name;
-
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date datetime;
+    
     @Column(length = 1, nullable = false)
     private Boolean status;
 
     @ManyToOne
-    @JoinColumn(name="box_id", nullable = false)
-    private Box box;
-    
-    @JsonIgnore
-    @OneToMany(mappedBy = "controller")
-    private List<LogControllers> logs = new ArrayList<LogControllers>();
+    @JoinColumn(name="controller_id", nullable = false)
+    private Controllers controller;
 }
