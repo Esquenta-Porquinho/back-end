@@ -3,6 +3,7 @@ package com.college.hotlittlepigs.controllers;
 import java.util.Optional;
 
 import com.college.hotlittlepigs.exception.NotFoundException;
+import com.college.hotlittlepigs.log_controllers.LogControllersService;
 import com.college.hotlittlepigs.model.PageModel;
 import com.college.hotlittlepigs.model.PageRequestModel;
 
@@ -17,6 +18,7 @@ import lombok.AllArgsConstructor;
 public class ControllersService {
     
     private ControllersRepository controllersRepository;
+    private LogControllersService logControllersService;
 
     public Controllers save(Controllers controllers){
         Controllers newController = controllersRepository.save(controllers);
@@ -26,15 +28,6 @@ public class ControllersService {
     public PageModel<Controllers> listAll(PageRequestModel pr){
         Pageable pageable = pr.toSpringPageRequest();
         Page<Controllers> page = controllersRepository.findAll(pageable);
-
-        PageModel<Controllers> pm = new PageModel<>((int) page.getTotalElements(), page.getSize(), page.getTotalPages(),
-                page.getContent());
-        return pm;
-    }
-
-    public PageModel<Controllers> listAllByWork(Boolean work, PageRequestModel pr){
-        Pageable pageable = pr.toSpringPageRequest();
-        Page<Controllers> page = controllersRepository.findAllByWork(work, pageable);
 
         PageModel<Controllers> pm = new PageModel<>((int) page.getTotalElements(), page.getSize(), page.getTotalPages(),
                 page.getContent());
@@ -79,9 +72,9 @@ public class ControllersService {
     }
 
     public Controllers updateWork(Long id, Boolean work){
-        Controllers controllers = this.getById(id);
-        controllers.setWork(work);
-        Controllers newControllers = this.save(controllers);
-        return newControllers;
+        Controllers controller = this.getById(id);
+        logControllersService.save(work, controller);
+        Controllers newController = controllersRepository.save(controller);
+        return newController;
     }
 }

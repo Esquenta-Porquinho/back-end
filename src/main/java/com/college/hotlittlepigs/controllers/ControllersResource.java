@@ -65,22 +65,6 @@ public class ControllersResource {
     }
 
     @Secured({ "ROLE_ADMIN" })
-    @GetMapping("/work/active")
-    public ResponseEntity<PageModel<Controllers>> listAllByActiveWork(@RequestParam Map<String, String> params){
-        PageRequestModel pr = new PageRequestModel(params);
-        PageModel<Controllers> pm = controllersService.listAllByWork(true, pr);
-        return ResponseEntity.ok(pm);
-    }
-
-    @Secured({ "ROLE_ADMIN" })
-    @GetMapping("/work/deactive")
-    public ResponseEntity<PageModel<Controllers>> listAllDeactiveWork(@RequestParam Map<String, String> params){
-        PageRequestModel pr = new PageRequestModel(params);
-        PageModel<Controllers> pm = controllersService.listAllByWork(false, pr);
-        return ResponseEntity.ok(pm);
-    }
-
-    @Secured({ "ROLE_ADMIN" })
     @GetMapping("/status/active")
     public ResponseEntity<PageModel<Controllers>> listAllActiveStatus(@RequestParam Map<String, String> params){
         PageRequestModel pr = new PageRequestModel(params);
@@ -107,20 +91,6 @@ public class ControllersResource {
     @PatchMapping("/deactivate/status/{id}")
     public ResponseEntity<Controllers> deactivateStatus(@PathVariable("id") Long id){
         Controllers controller = controllersService.updateStatus(id, false);
-        return ResponseEntity.ok(controller);
-    }
-
-    @Secured({ "ROLE_ADMIN" })
-    @PatchMapping("/active/work/{id}")
-    public ResponseEntity<Controllers> activateWork(@PathVariable("id") Long id){
-        Controllers controller = controllersService.updateWork(id, true);
-        return ResponseEntity.ok(controller);
-    }
-
-    @Secured({ "ROLE_ADMIN" })
-    @PatchMapping("/deactivate/work/{id}")
-    public ResponseEntity<Controllers> deactivateWork(@PathVariable("id") Long id){
-        Controllers controller = controllersService.updateWork(id, false);
         return ResponseEntity.ok(controller);
     }
 

@@ -7,8 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ControllersRepository extends JpaRepository<Controllers, Long>{
-    
-    public Page<Controllers> findAllByWork(Boolean work, Pageable pageable);
 
     public Page<Controllers> findAllByStatus(Boolean status, Pageable pageable);
 
