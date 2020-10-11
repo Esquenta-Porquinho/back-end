@@ -1,5 +1,7 @@
 package com.college.hotlittlepigs.sensors;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -9,9 +11,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.college.hotlittlepigs.box.Box;
+import com.college.hotlittlepigs.meansurement.Measurement;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -42,5 +47,9 @@ public class Sensors implements Serializable{
     @ManyToOne
     @JoinColumn(name="box_id", nullable = false)
     private Box box;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "sensor")
+    private List<Measurement> sensors = new ArrayList<Measurement>();
 
 }
