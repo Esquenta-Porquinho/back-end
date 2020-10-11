@@ -46,7 +46,7 @@ public class UserResource {
     private JwtManager jwtManager;
     private AuthenticationManager authManager;
 
-    @PostMapping
+    @PostMapping()
     public ResponseEntity<User> save(@RequestBody @Valid UserSaveDTO userDTO){
         User user = userDTO.toUser();
         User createdUser = userService.save(user);
@@ -62,7 +62,7 @@ public class UserResource {
         return ResponseEntity.ok(updatedUser);
     }
 
-    @Secured({ "ROLE_ADMIN" })
+    @PreAuthorize("@accessManager.isOwner(#id)")
     @GetMapping("/{id}")
     public ResponseEntity<User> getById(@PathVariable("id") Long id){
         User user = userService.getById(id);

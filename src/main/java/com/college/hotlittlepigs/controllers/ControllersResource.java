@@ -94,14 +94,12 @@ public class ControllersResource {
         return ResponseEntity.ok(controller);
     }
 
-    @Secured({ "ROLE_ADMIN" })
     @PatchMapping("/active/work/{id}")
     public ResponseEntity<Controllers> activateWork(@PathVariable("id") Long id){
         Controllers controller = controllersService.updateWork(id, true);
         return ResponseEntity.ok(controller);
     }
 
-    @Secured({ "ROLE_ADMIN" })
     @PatchMapping("/deactivate/work/{id}")
     public ResponseEntity<Controllers> deactivateWork(@PathVariable("id") Long id){
         Controllers controller = controllersService.updateWork(id, false);

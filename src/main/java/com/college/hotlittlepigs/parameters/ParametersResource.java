@@ -30,7 +30,7 @@ public class ParametersResource {
 
     private ParametersService parametersService;
 
-    @Secured({  "ROLE_ADMIN", "ROLE_MANAGER" })
+    @Secured({ "ROLE_MANAGER", "ROLE_SIMPLE" })
     @PostMapping()
     public ResponseEntity<Parameters> save(@Valid @RequestBody ParametersSaveDTO parametersSaveDTO){
         Parameters parameters = parametersSaveDTO.toParameters();
@@ -38,7 +38,7 @@ public class ParametersResource {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdParameters);
     }
 
-    @Secured({ "ROLE_ADMIN", "ROLE_MANAGER" })
+    @Secured({ "ROLE_MANAGER", "ROLE_SIMPLE" })
     @GetMapping()
     public ResponseEntity<PageModel<Parameters>> listAll(@RequestParam Map<String, String> params){
         PageRequestModel pr = new PageRequestModel(params);
@@ -46,7 +46,7 @@ public class ParametersResource {
         return ResponseEntity.ok(pm);
     }
 
-    @Secured({ "ROLE_ADMIN", "ROLE_MANAGER" })
+    @Secured({ "ROLE_MANAGER", "ROLE_SIMPLE" })
     @GetMapping("/box/{id}")
     public ResponseEntity<PageModel<Parameters>> listAllByBox(
         @PathVariable("id") Long id,
@@ -57,14 +57,14 @@ public class ParametersResource {
         return ResponseEntity.ok(pm);
     }
 
-    @Secured({ "ROLE_ADMIN", "ROLE_MANAGER" })
+    @Secured({ "ROLE_MANAGER", "ROLE_SIMPLE" })
     @GetMapping("/{id}")
     public ResponseEntity<Parameters> getById(@PathVariable("id") Long id){
         Parameters parameters = parametersService.getById(id);
         return ResponseEntity.ok(parameters);
     }
 
-    @Secured({  "ROLE_ADMIN", "ROLE_MANAGER" })
+    @Secured({ "ROLE_MANAGER", "ROLE_SIMPLE" })
     @PutMapping("/{id}")
     public ResponseEntity<Parameters> updateParameters(
         @PathVariable("id") Long id,
@@ -75,14 +75,14 @@ public class ParametersResource {
         return ResponseEntity.ok(createdParameters);
     }
 
-    @Secured({ "ROLE_ADMIN", "ROLE_MANAGER" })
+    @Secured({ "ROLE_MANAGER", "ROLE_SIMPLE" })
     @PatchMapping("/deactivate/{id}")
     public ResponseEntity<Parameters> deactivate(@PathVariable("id") Long id) {
         Parameters parameters = parametersService.updateStatus(id, false);
         return ResponseEntity.ok(parameters);
     }
 
-    @Secured({ "ROLE_ADMIN", "ROLE_MANAGER" })
+    @Secured({ "ROLE_MANAGER", "ROLE_SIMPLE" })
     @PatchMapping("/activate/{id}")
     public ResponseEntity<Parameters> activate(@PathVariable("id") Long id) {
         Parameters parameters = parametersService.updateStatus(id, true);

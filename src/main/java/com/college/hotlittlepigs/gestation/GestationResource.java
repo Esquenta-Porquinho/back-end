@@ -85,14 +85,14 @@ public class GestationResource {
         return ResponseEntity.ok(newGestation); 
     }
 
-    @Secured({ "ROLE_ADMIN", "ROLE_MANAGER" })
+    @Secured({ "ROLE_MANAGER", "ROLE_SIMPLE" })
     @PatchMapping("/deactivate/{id}")
     public ResponseEntity<Gestation> deactivate(@PathVariable("id") Long id) {
         Gestation gestation = gestationService.updateStatus(id, false);
         return ResponseEntity.ok(gestation);
     }
 
-    @Secured({ "ROLE_ADMIN", "ROLE_MANAGER" })
+    @Secured({ "ROLE_MANAGER", "ROLE_SIMPLE" })
     @PatchMapping("/activate/{id}")
     public ResponseEntity<Gestation> activate(@PathVariable("id") Long id) {
         Gestation gestation = gestationService.updateStatus(id, true);
