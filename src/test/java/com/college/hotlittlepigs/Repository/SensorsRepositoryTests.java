@@ -32,7 +32,7 @@ public class SensorsRepositoryTests {
         Optional<Box> requestBox = boxRepository.findById(1L);
         Box box = requestBox.get();
         
-        Sensors sensors = new Sensors(null,"°C", "Sensor Temperatura Ambiente", false, box);
+        Sensors sensors = new Sensors(null,"°C", "Sensor Temperatura Ambiente", false, box, null);
         Sensors createdSensors = sensorsRepository.save(sensors);
         assertThat(createdSensors.getId()).isEqualTo(1L);    
     }
