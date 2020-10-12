@@ -3,6 +3,7 @@ package com.college.hotlittlepigs.Repository;
 import java.util.List;
 import java.util.Optional;
 
+import com.college.hotlittlepigs.model.PageRequestModel;
 import com.college.hotlittlepigs.user.User;
 import com.college.hotlittlepigs.user.UserRepository;
 import com.college.hotlittlepigs.user.enums.Role;
@@ -13,6 +14,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
 import org.springframework.test.context.junit4.SpringRunner;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -49,12 +51,24 @@ public class UserRepositoryTests {
     }
 
     @Test
-    public void listTest(){
-        List<User> users = userRepository.findAll();
-
-        assertThat(users.size()).isEqualTo(1);
-
+    public void listAllTest(){
+        PageRequestModel prm = new PageRequestModel();
+        Page<User> page = userRepository.findAll(prm.toSpringPageRequest());
+        assertThat(page.getTotalElements()).isEqualTo(2);
     }
+
+    @Test
+    public void listAllByRole(){
+        List<User> users = userRepository.findAllByRole(Role.ADMIN);
+        assertThat(users.size()).isEqualTo(1);
+    }
+
+    @Test
+    public void findAllNotAdmin(){
+        PageRequestModel prm = new PageRequestModel();
+        Page<User> page = userRepository.findAllNotAdmin(Role.ADMIN, prm.toSpringPageRequest());
+        assertThat(page.getTotalElements()).isEqualTo(1);
+    };
 
     @Test
     public void loginTest(){
