@@ -37,9 +37,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.AllArgsConstructor;
 
-@RestController
-@RequestMapping(value = "users")
+
 @AllArgsConstructor
+@RequestMapping(value = "users")
+@RestController
 public class UserResource {
     private UserService userService;
     private LogService logService;
@@ -97,6 +98,7 @@ public class UserResource {
     }
 
     @Secured({ "ROLE_ADMIN", "ROLE_MANAGER" })
+    @PreAuthorize("@logHandler.saveLog('Update role' + #id)")
     @PatchMapping("/role/{id}")
     public ResponseEntity<?> updateRole(@PathVariable(name="id") Long id, @RequestBody @Valid UserUpdateRoleDTO userDTO){
         userService.updateRole(userDTO, id);
