@@ -1,5 +1,6 @@
 package com.college.hotlittlepigs.user;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.college.hotlittlepigs.user.enums.Role;
@@ -25,4 +26,5 @@ public interface UserRepository extends JpaRepository<User, Long>{
     @Query("SELECT U from user U where role!=?1")
     public Page<User> findAllNotAdmin(Role role, Pageable pageable);
 
+    public List<User> findAllByRole(Role role);
 }

@@ -11,7 +11,6 @@ import com.college.hotlittlepigs.sensors.dto.SensorsSaveDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,16 +19,17 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @RequestMapping(value = "sensors")
-@Controller
+@RestController
 public class SensorsResource {
     private SensorsService sensorsService;
 
-    @Secured({  "ROLE_ADMIN" })
+    @Secured({ "ROLE_ADMIN" })
     @PostMapping()
     public ResponseEntity<Sensors> save(@Valid @RequestBody SensorsSaveDTO sensorsSaveDTO){
         Sensors sensors = sensorsSaveDTO.toSensors();
@@ -68,11 +68,7 @@ public class SensorsResource {
     @GetMapping("/deactive")
     public ResponseEntity<PageModel<Sensors>> listAllDeactive(@RequestParam Map<String, String> params){
         PageRequestModel pr = new PageRequestModel(params);
-<<<<<<< Updated upstream
         PageModel<Sensors> pm = sensorsService.listAllByStatus(true, pr);
-=======
-        PageModel<Sensors> pm = sensorsService.listAllByStatus(false, pr);
->>>>>>> Stashed changes
         return ResponseEntity.ok(pm);
     }
 

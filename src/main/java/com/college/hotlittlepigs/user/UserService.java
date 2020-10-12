@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.mail.internet.MimeMessage;
+
+import com.college.hotlittlepigs.controllers.Controllers;
 import com.college.hotlittlepigs.exception.NotFoundException;
 import com.college.hotlittlepigs.model.PageModel;
 import com.college.hotlittlepigs.model.PageRequestModel;
@@ -15,6 +18,8 @@ import com.college.hotlittlepigs.user.enums.Role;
 import com.college.hotlittlepigs.user.util.HashUtil;
 
 import org.springframework.data.domain.Pageable;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.GrantedAuthority;
@@ -106,5 +111,28 @@ public class UserService implements UserDetailsService {
                                         .map(authority -> authority.getAuthority())
                                         .collect(Collectors.toList());
         return new UserLoginServiceDTO(email, roles);
+    }
+
+    public void sendWarnings(Controllers controller){
+        List<User> users = userRepository.findAllByRole(Role.ADMIN);
+
+        for(int i=0; i<users.size(); i++){
+            JavaMailSenderImpl sender = new JavaMailSenderImpl();
+            sender.setHost("To define");
+            sender.setPort(00);
+
+            MimeMessage message = sender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message);
+            try{
+                helper.setFrom("Esquenta-Porquinho");
+                helper.setSubject("Error on controller" + controller.getName());
+                helper.setTo(users.get(i).getEmail());
+                sender.send(message);
+            }catch(Exception e){
+                System.out.println(e.getMessage());
+                continue;
+            }
+        };
+
     }
 }

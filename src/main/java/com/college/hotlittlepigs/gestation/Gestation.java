@@ -41,18 +41,18 @@ public class Gestation implements Serializable{
     private Integer deadPigs;
 
     @Column(length = 45, nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date expectedParturition;
 
     @Column(length = 45)
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date effectiveParturition;
 
     @Column(length=10, nullable = false)
     private Integer numberParturition;
 
     @Column(length = 45)
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date weaning;
 
     @Column(length = 1, nullable = false)

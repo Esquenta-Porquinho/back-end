@@ -6,6 +6,7 @@ import com.college.hotlittlepigs.exception.NotFoundException;
 import com.college.hotlittlepigs.log_controllers.LogControllersService;
 import com.college.hotlittlepigs.model.PageModel;
 import com.college.hotlittlepigs.model.PageRequestModel;
+import com.college.hotlittlepigs.user.UserService;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,6 +20,7 @@ public class ControllersService {
     
     private ControllersRepository controllersRepository;
     private LogControllersService logControllersService;
+    private UserService userService;
 
     public Controllers save(Controllers controllers){
         Controllers newController = controllersRepository.save(controllers);
@@ -65,10 +67,11 @@ public class ControllersService {
     }
 
     public Controllers updateStatus(Long id, Boolean status){
-        Controllers controllers = this.getById(id);
-        controllers.setStatus(status);
-        Controllers newControllers = this.save(controllers);
-        return newControllers;
+        Controllers controller = this.getById(id);
+        if(!status) userService.sendWarnings(controller);
+        controller.setStatus(status);
+        Controllers newController = this.save(controller);
+        return newController;
     }
 
     public Controllers updateWork(Long id, Boolean work){
@@ -77,4 +80,5 @@ public class ControllersService {
         Controllers newController = controllersRepository.save(controller);
         return newController;
     }
+
 }

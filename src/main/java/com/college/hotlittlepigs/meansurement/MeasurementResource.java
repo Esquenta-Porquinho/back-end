@@ -10,29 +10,32 @@ import com.college.hotlittlepigs.model.PageRequestModel;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @RequestMapping(value = "measurement")
-@Controller
+@RestController
 public class MeasurementResource {
     
     private MeasurementService measurementService;
 
+    @Secured({ "ROLE_ADMIN" })
     @PostMapping()
     public ResponseEntity<?> save(@Valid @RequestBody MeasurementListSaveDTO listMeasurementDTO){
         measurementService.save(listMeasurementDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+    @Secured({ "ROLE_ADMIN" })
     @GetMapping("{id}")
     public ResponseEntity<PageModel<Measurement>> listAllBySensorId(
         @PathVariable("id") Long id,

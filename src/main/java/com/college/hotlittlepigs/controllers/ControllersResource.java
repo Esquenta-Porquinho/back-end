@@ -11,7 +11,6 @@ import com.college.hotlittlepigs.model.PageRequestModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,16 +19,17 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @RequestMapping(value = "controllers")
-@Controller
+@RestController
 public class ControllersResource {
     
     private ControllersService controllersService;
-
+    
     @Secured({ "ROLE_ADMIN" })
     @PostMapping()
     public ResponseEntity<Controllers> save(@Valid @RequestBody ControllersSaveDTO controllerDTO){
@@ -73,8 +73,8 @@ public class ControllersResource {
     }
 
     @Secured({ "ROLE_ADMIN" })
-    @GetMapping("/status/deactive")
-    public ResponseEntity<PageModel<Controllers>> listAllDeactiveStatus(@RequestParam Map<String, String> params){
+    @GetMapping("/status/inactive")
+    public ResponseEntity<PageModel<Controllers>> listAllInactiveStatus(@RequestParam Map<String, String> params){
         PageRequestModel pr = new PageRequestModel(params);
         PageModel<Controllers> pm = controllersService.listAllByStatus(false, pr);
         return ResponseEntity.ok(pm);
@@ -118,6 +118,4 @@ public class ControllersResource {
         Controllers updateController = controllersService.update(id, controllers);
         return ResponseEntity.ok(updateController);
     }
-
-
 }
