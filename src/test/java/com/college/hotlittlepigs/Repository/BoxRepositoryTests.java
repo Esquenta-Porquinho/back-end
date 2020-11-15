@@ -50,7 +50,7 @@ public class BoxRepositoryTests {
 
     @Test
     public void findByNumberByStatus(){
-        Optional<Box> result = boxRepository.findByNumberByStatus(2, true);
+        Optional<Box> result = boxRepository.findBoxByNumberAndStatus(2, true);
         Box box = result.get();
 
         assertThat(box.getId()).isEqualTo(1L);

@@ -9,7 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BoxRepository extends JpaRepository<Box, Long>{
     
-    @Query("SELECT U FROM box U WHERE number=?1 and status=?2")
-    public Optional<Box> findByNumberByStatus(int number, Boolean status);
-    
+    Optional<Box> findBoxByNumberAndStatus(int number, Boolean status);
 }
