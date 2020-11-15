@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import com.college.hotlittlepigs.box.Box;
 import com.college.hotlittlepigs.box.BoxRepository;
-import com.college.hotlittlepigs.controllers.Controllers;
+import com.college.hotlittlepigs.controllers.Controller;
 import com.college.hotlittlepigs.controllers.ControllersRepository;
 import com.college.hotlittlepigs.model.PageRequestModel;
 
@@ -22,7 +22,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @FixMethodOrder(MethodSorters.DEFAULT)
 @SpringBootTest
-public class ControllersRepositoryTests {
+public class ControllerRepositoryTests {
     
     @Autowired private BoxRepository boxRepository;
     @Autowired private ControllersRepository controllersRepository;
@@ -32,43 +32,43 @@ public class ControllersRepositoryTests {
         Optional<Box> requestBox = boxRepository.findById(1L);
         Box box = requestBox.get();
         
-        Controllers controllers = new Controllers(null,"Controlador Boiler", false, box, null);
-        Controllers createdControllers = controllersRepository.save(controllers);
-        assertThat(createdControllers.getId()).isEqualTo(1L);    
+        Controller controller = new Controller(null,"Controlador Boiler", false, box, null);
+        Controller createdController = controllersRepository.save(controller);
+        assertThat(createdController.getId()).isEqualTo(1L);
     }
 
     @Test
     public void findAllTest(){
         PageRequestModel prm = new PageRequestModel();
-        Page<Controllers> page = controllersRepository.findAll(prm.toSpringPageRequest());
+        Page<Controller> page = controllersRepository.findAll(prm.toSpringPageRequest());
         assertThat(page.getTotalElements()).isEqualTo(1);
     }
 
     @Test
     public void getByIdTest(){
-        Optional<Controllers> result = controllersRepository.findById(1L);
-        Controllers controllers = result.get();
-        assertThat(controllers.getName()).isEqualTo("Controlador Boiler");
+        Optional<Controller> result = controllersRepository.findById(1L);
+        Controller controller = result.get();
+        assertThat(controller.getName()).isEqualTo("Controlador Boiler");
     }
 
     @Test
     public void findAllByBoxIdTest(){
         PageRequestModel prm = new PageRequestModel();
-        Page<Controllers> page = controllersRepository.findAllByBoxId(1L, prm.toSpringPageRequest());
+        Page<Controller> page = controllersRepository.findAllByBoxId(1L, prm.toSpringPageRequest());
         assertThat(page.getTotalElements()).isEqualTo(1);
     }
 
     @Test
     public void findAllByStatusTest(){
         PageRequestModel prm = new PageRequestModel();
-        Page<Controllers> page = controllersRepository.findAllByStatus(true, prm.toSpringPageRequest());
+        Page<Controller> page = controllersRepository.findAllByStatus(true, prm.toSpringPageRequest());
         assertThat(page.getTotalElements()).isEqualTo(0);
     }
 
     @Test
     public void findAllByWorkTest(){
         PageRequestModel prm = new PageRequestModel();
-        Page<Controllers> page = controllersRepository.findAllByStatus(false, prm.toSpringPageRequest());
+        Page<Controller> page = controllersRepository.findAllByStatus(false, prm.toSpringPageRequest());
         assertThat(page.getTotalElements()).isEqualTo(1);
     }
 }

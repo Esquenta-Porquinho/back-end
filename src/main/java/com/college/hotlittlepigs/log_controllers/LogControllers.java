@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.college.hotlittlepigs.controllers.Controllers;
+import com.college.hotlittlepigs.controllers.Controller;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -42,5 +42,5 @@ public class LogControllers implements Serializable{
 
     @ManyToOne
     @JoinColumn(name="controller_id", nullable = false)
-    private Controllers controller;
+    private Controller controller;
 }

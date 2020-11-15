@@ -2,7 +2,7 @@ package com.college.hotlittlepigs.log_controllers;
 
 import java.util.Date;
 
-import com.college.hotlittlepigs.controllers.Controllers;
+import com.college.hotlittlepigs.controllers.Controller;
 import com.college.hotlittlepigs.model.PageModel;
 import com.college.hotlittlepigs.model.PageRequestModel;
 
@@ -18,7 +18,7 @@ public class LogControllersService {
     
     private LogControllersRepository logControllersRepository;
 
-    public LogControllers save(Boolean status, Controllers controller){
+    public LogControllers save(Boolean status, Controller controller){
         LogControllers logControllers = new LogControllers();
         logControllers.setController(controller);
         logControllers.setDatetime(new Date());

@@ -1,6 +1,6 @@
 package com.college.hotlittlepigs.box;
 
-import com.college.hotlittlepigs.controllers.Controllers;
+import com.college.hotlittlepigs.controllers.Controller;
 import com.college.hotlittlepigs.gestation.Gestation;
 import com.college.hotlittlepigs.parameters.Parameters;
 import com.college.hotlittlepigs.sensors.Sensors;
@@ -52,5 +52,5 @@ public class Box implements Serializable {
 
   @JsonIgnore
   @OneToMany(mappedBy = "box")
-  private List<Controllers> controllers = new ArrayList<>();
+  private List<Controller> controllers = new ArrayList<>();
 }

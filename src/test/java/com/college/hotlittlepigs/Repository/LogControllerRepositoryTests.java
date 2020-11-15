@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.Date;
 import java.util.Optional;
 
-import com.college.hotlittlepigs.controllers.Controllers;
+import com.college.hotlittlepigs.controllers.Controller;
 import com.college.hotlittlepigs.controllers.ControllersRepository;
 import com.college.hotlittlepigs.log_controllers.LogControllers;
 import com.college.hotlittlepigs.log_controllers.LogControllersRepository;
@@ -23,15 +23,15 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @FixMethodOrder(MethodSorters.DEFAULT)
 @SpringBootTest
-public class LogControllersRepositoryTests {
+public class LogControllerRepositoryTests {
     
     @Autowired private LogControllersRepository logControllersRepository;
     @Autowired private ControllersRepository controllersRepository;
 
     @Test
     public void saveTest(){
-        Optional<Controllers> request = controllersRepository.findById(1L);
-        Controllers controller = request.get();
+        Optional<Controller> request = controllersRepository.findById(1L);
+        Controller controller = request.get();
         LogControllers log = new LogControllers(null, new Date(), true, controller);
         LogControllers createdLog = logControllersRepository.save(log);
 

@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 import javax.mail.internet.MimeMessage;
 
-import com.college.hotlittlepigs.controllers.Controllers;
+import com.college.hotlittlepigs.controllers.Controller;
 import com.college.hotlittlepigs.exception.NotFoundException;
 import com.college.hotlittlepigs.model.PageModel;
 import com.college.hotlittlepigs.model.PageRequestModel;
@@ -113,7 +113,7 @@ public class UserService implements UserDetailsService {
         return new UserLoginServiceDTO(email, roles);
     }
 
-    public void sendWarnings(Controllers controller){
+    public void sendWarnings(Controller controller){
         List<User> users = userRepository.findAllByRole(Role.ADMIN);
 
         for(int i=0; i<users.size(); i++){
