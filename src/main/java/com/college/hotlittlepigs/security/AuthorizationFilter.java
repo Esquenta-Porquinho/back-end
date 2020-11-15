@@ -11,8 +11,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.college.hotlittlepigs.exception.Error;
-import com.college.hotlittlepigs.exception.JwtException;
+import com.college.hotlittlepigs.exception.common.Error;
+import com.college.hotlittlepigs.exception.common.JwtException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.http.HttpHeaders;

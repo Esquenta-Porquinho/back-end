@@ -1,6 +1,6 @@
 package com.college.hotlittlepigs.box.exception;
 
-import com.college.hotlittlepigs.exception.NotFoundException;
+import com.college.hotlittlepigs.exception.common.NotFoundException;
 
 public class ParametersNotFoundException extends NotFoundException {
   public ParametersNotFoundException() {

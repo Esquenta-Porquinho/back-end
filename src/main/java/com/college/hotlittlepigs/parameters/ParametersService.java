@@ -3,7 +3,7 @@ package com.college.hotlittlepigs.parameters;
 import java.util.Optional;
 
 import com.college.hotlittlepigs.box.Box;
-import com.college.hotlittlepigs.exception.NotFoundException;
+import com.college.hotlittlepigs.exception.common.NotFoundException;
 import com.college.hotlittlepigs.model.PageModel;
 import com.college.hotlittlepigs.model.PageRequestModel;
 

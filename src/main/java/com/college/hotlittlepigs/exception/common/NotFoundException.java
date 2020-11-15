@@ -1,4 +1,4 @@
-package com.college.hotlittlepigs.exception;
+package com.college.hotlittlepigs.exception.common;
 
 public class NotFoundException extends RuntimeException {
 

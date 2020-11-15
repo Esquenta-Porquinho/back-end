@@ -2,7 +2,7 @@ package com.college.hotlittlepigs.matrix;
 
 import java.util.Optional;
 
-import com.college.hotlittlepigs.exception.NotFoundException;
+import com.college.hotlittlepigs.exception.common.NotFoundException;
 import com.college.hotlittlepigs.model.PageModel;
 import com.college.hotlittlepigs.model.PageRequestModel;
 

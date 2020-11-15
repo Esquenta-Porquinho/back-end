@@ -2,7 +2,7 @@ package com.college.hotlittlepigs.security;
 
 import java.util.Optional;
 
-import com.college.hotlittlepigs.exception.NotFoundException;
+import com.college.hotlittlepigs.exception.common.NotFoundException;
 import com.college.hotlittlepigs.user.User;
 import com.college.hotlittlepigs.user.UserRepository;
 import com.college.hotlittlepigs.user.enums.Role;

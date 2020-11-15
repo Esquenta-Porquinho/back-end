@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import javax.mail.internet.MimeMessage;
 
 import com.college.hotlittlepigs.controllers.Controller;
-import com.college.hotlittlepigs.exception.NotFoundException;
+import com.college.hotlittlepigs.exception.common.NotFoundException;
 import com.college.hotlittlepigs.model.PageModel;
 import com.college.hotlittlepigs.model.PageRequestModel;
 import com.college.hotlittlepigs.security.AccessManager;

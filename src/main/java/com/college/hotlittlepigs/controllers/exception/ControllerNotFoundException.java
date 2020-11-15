@@ -1,6 +1,6 @@
 package com.college.hotlittlepigs.controllers.exception;
 
-import com.college.hotlittlepigs.exception.NotFoundException;
+import com.college.hotlittlepigs.exception.common.NotFoundException;
 
 public class ControllerNotFoundException extends NotFoundException {
   public ControllerNotFoundException() {
