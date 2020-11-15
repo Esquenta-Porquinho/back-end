@@ -3,7 +3,6 @@ package com.college.hotlittlepigs.log;
 import com.college.hotlittlepigs.model.PageModel;
 import com.college.hotlittlepigs.model.PageRequestModel;
 import com.college.hotlittlepigs.user.User;
-
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,24 +14,22 @@ import java.util.Date;
 @Service
 public class LogService {
 
-    private LogRepository logRepository;
+  private final LogRepository repository;
 
-    public Log save(String action, User owner){
-        Log log = new Log();
-        log.setOwner(owner);
-        log.setDatetime(new Date());
-        log.setDescription(action);
+  public Log save(String action, User owner) {
+    Log log = new Log();
+    log.setOwner(owner);
+    log.setDatetime(new Date());
+    log.setDescription(action);
 
-        Log newLog = logRepository.save(log);
-        return newLog;
-    }
+    return repository.save(log);
+  }
 
-    public PageModel<Log> listAllLogsByOwner(Long id, PageRequestModel pr) {
-        Pageable pageable = pr.toSpringPageRequest();
-        Page<Log> page = logRepository.findAllByOwnerId(id, pageable);
+  public PageModel<Log> listAllLogsByOwner(Long id, PageRequestModel pr) {
+    Pageable pageable = pr.toSpringPageRequest();
+    Page<Log> page = repository.findAllByOwnerId(id, pageable);
 
-        PageModel<Log> pm = new PageModel<>((int)page.getTotalElements(), page.getSize(), page.getTotalPages(), page.getContent());
-        return pm;
-    }
-
+    return new PageModel<>(
+        (int) page.getTotalElements(), page.getSize(), page.getTotalPages(), page.getContent());
+  }
 }
