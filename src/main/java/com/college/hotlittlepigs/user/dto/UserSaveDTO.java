@@ -18,7 +18,7 @@ public class UserSaveDTO {
     @Email(message="Invalid email address")
     private String email;
     
-    @Size(min=7, max=99, message="Password size must be between 7 and 99")
+    @Size(min=8, max=16, message="Password size must be between 8 and 16")
     private String password;
     
     public User toUser(){
