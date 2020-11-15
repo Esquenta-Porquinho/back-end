@@ -60,7 +60,7 @@ public class ParametersRepositoryTests {
 
     @Test
     public void findActiveByWeekByBoxTest(){
-        Optional<Parameters> result = parametersRepository.findActiveByWeekByBox(1L, 1.0);
+        Optional<Parameters> result = parametersRepository.findByBoxIdAndWeeksAndStatusIsTrue(1L, 1.0);
         Parameters parameters = result.get();
         assertThat(parameters.getId()).isEqualTo(1);
     }

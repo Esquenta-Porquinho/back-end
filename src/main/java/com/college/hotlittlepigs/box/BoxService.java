@@ -2,7 +2,7 @@ package com.college.hotlittlepigs.box;
 
 import com.college.hotlittlepigs.box.dto.BoxUpdateDTO;
 import com.college.hotlittlepigs.box.exception.BoxNotFoundException;
-import com.college.hotlittlepigs.box.exception.ParametersNotFoundException;
+import com.college.hotlittlepigs.parameters.expcetion.ParametersNotFoundException;
 import com.college.hotlittlepigs.gestation.Gestation;
 import com.college.hotlittlepigs.pagination.PageModel;
 import com.college.hotlittlepigs.pagination.PageRequestModel;
@@ -79,6 +79,6 @@ public class BoxService {
     Days days = Days.daysBetween(birthDate, today);
     Double week = Math.ceil(days.getDays() / 7.0);
 
-    return parametersService.getParametersByActiveByBox(box, week);
+    return parametersService.geyByActiveBox(box, week);
   }
 }

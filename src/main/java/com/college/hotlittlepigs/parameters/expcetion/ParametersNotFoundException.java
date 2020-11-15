@@ -1,4 +1,4 @@
-package com.college.hotlittlepigs.box.exception;
+package com.college.hotlittlepigs.parameters.expcetion;
 
 import com.college.hotlittlepigs.exception.common.NotFoundException;
 
