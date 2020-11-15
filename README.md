@@ -14,8 +14,12 @@
 ## :link: Useful links
 - [Front-end Repository](https://github.com/Esquenta-Porquinho/front-end)
 - [Documentation Repository](https://github.com/Esquenta-Porquinho/documentation)
-- [Another good link]()
 ***
+
+## Running
+```bash
+docker-compose up -d
+```
 
 ## 🤝 Contributing
 

@@ -32,15 +32,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     }
 
     @Override
-    public void configure(WebSecurity web) {
-        web.ignoring()
-                .antMatchers(HttpMethod.POST, "/users")
-                .antMatchers(HttpMethod.POST, "/users/login");
-    }
-
-    @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+        http.cors().and().csrf().disable()
                    .authorizeRequests()
                    .anyRequest().authenticated();
 
@@ -52,5 +45,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
+
+    @Override
+    public void configure(WebSecurity web) {
+        web.ignoring()
+                .antMatchers(HttpMethod.POST, "/users")
+                .antMatchers(HttpMethod.POST, "/users/login");
+    }
+
 
 }
