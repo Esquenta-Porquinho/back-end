@@ -2,8 +2,8 @@ package com.college.hotlittlepigs.box;
 
 import com.college.hotlittlepigs.box.dto.BoxSaveDTO;
 import com.college.hotlittlepigs.box.dto.BoxUpdateDTO;
-import com.college.hotlittlepigs.model.PageModel;
-import com.college.hotlittlepigs.model.PageRequestModel;
+import com.college.hotlittlepigs.pagination.PageModel;
+import com.college.hotlittlepigs.pagination.PageRequestModel;
 import com.college.hotlittlepigs.parameters.Parameters;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

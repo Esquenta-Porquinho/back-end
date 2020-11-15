@@ -7,8 +7,8 @@ import javax.validation.Valid;
 
 import com.college.hotlittlepigs.log.Log;
 import com.college.hotlittlepigs.log.LogService;
-import com.college.hotlittlepigs.model.PageModel;
-import com.college.hotlittlepigs.model.PageRequestModel;
+import com.college.hotlittlepigs.pagination.PageModel;
+import com.college.hotlittlepigs.pagination.PageRequestModel;
 import com.college.hotlittlepigs.security.JwtManager;
 import com.college.hotlittlepigs.user.dto.UserLoginDTO;
 import com.college.hotlittlepigs.user.dto.UserLoginResponseDTO;

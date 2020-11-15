@@ -7,7 +7,7 @@ import java.util.Optional;
 
 import com.college.hotlittlepigs.log.Log;
 import com.college.hotlittlepigs.log.LogRepository;
-import com.college.hotlittlepigs.model.PageRequestModel;
+import com.college.hotlittlepigs.pagination.PageRequestModel;
 import com.college.hotlittlepigs.user.User;
 import com.college.hotlittlepigs.user.UserRepository;
 

@@ -2,8 +2,8 @@ package com.college.hotlittlepigs.controllers;
 
 import com.college.hotlittlepigs.controllers.exception.ControllerNotFoundException;
 import com.college.hotlittlepigs.log_controllers.LogControllersService;
-import com.college.hotlittlepigs.model.PageModel;
-import com.college.hotlittlepigs.model.PageRequestModel;
+import com.college.hotlittlepigs.pagination.PageModel;
+import com.college.hotlittlepigs.pagination.PageRequestModel;
 import com.college.hotlittlepigs.user.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;

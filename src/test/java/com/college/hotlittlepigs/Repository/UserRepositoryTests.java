@@ -3,7 +3,7 @@ package com.college.hotlittlepigs.Repository;
 import java.util.List;
 import java.util.Optional;
 
-import com.college.hotlittlepigs.model.PageRequestModel;
+import com.college.hotlittlepigs.pagination.PageRequestModel;
 import com.college.hotlittlepigs.user.User;
 import com.college.hotlittlepigs.user.UserRepository;
 import com.college.hotlittlepigs.user.enums.Role;

@@ -8,7 +8,7 @@ import com.college.hotlittlepigs.box.Box;
 import com.college.hotlittlepigs.box.BoxRepository;
 import com.college.hotlittlepigs.controllers.Controller;
 import com.college.hotlittlepigs.controllers.ControllersRepository;
-import com.college.hotlittlepigs.model.PageRequestModel;
+import com.college.hotlittlepigs.pagination.PageRequestModel;
 
 import org.junit.FixMethodOrder;
 import org.junit.Test;

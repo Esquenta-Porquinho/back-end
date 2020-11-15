@@ -7,7 +7,7 @@ import java.util.Optional;
 
 import com.college.hotlittlepigs.meansurement.Measurement;
 import com.college.hotlittlepigs.meansurement.MeasurementRepository;
-import com.college.hotlittlepigs.model.PageRequestModel;
+import com.college.hotlittlepigs.pagination.PageRequestModel;
 import com.college.hotlittlepigs.sensors.Sensors;
 import com.college.hotlittlepigs.sensors.SensorsRepository;
 

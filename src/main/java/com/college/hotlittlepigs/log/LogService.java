@@ -1,7 +1,7 @@
 package com.college.hotlittlepigs.log;
 
-import com.college.hotlittlepigs.model.PageModel;
-import com.college.hotlittlepigs.model.PageRequestModel;
+import com.college.hotlittlepigs.pagination.PageModel;
+import com.college.hotlittlepigs.pagination.PageRequestModel;
 import com.college.hotlittlepigs.user.User;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;

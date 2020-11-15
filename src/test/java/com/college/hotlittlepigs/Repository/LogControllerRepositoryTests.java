@@ -9,7 +9,7 @@ import com.college.hotlittlepigs.controllers.Controller;
 import com.college.hotlittlepigs.controllers.ControllersRepository;
 import com.college.hotlittlepigs.log_controllers.LogController;
 import com.college.hotlittlepigs.log_controllers.LogControllersRepository;
-import com.college.hotlittlepigs.model.PageRequestModel;
+import com.college.hotlittlepigs.pagination.PageRequestModel;
 
 import org.junit.FixMethodOrder;
 import org.junit.Test;

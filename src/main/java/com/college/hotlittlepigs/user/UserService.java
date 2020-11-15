@@ -9,8 +9,8 @@ import javax.mail.internet.MimeMessage;
 
 import com.college.hotlittlepigs.controllers.Controller;
 import com.college.hotlittlepigs.exception.common.NotFoundException;
-import com.college.hotlittlepigs.model.PageModel;
-import com.college.hotlittlepigs.model.PageRequestModel;
+import com.college.hotlittlepigs.pagination.PageModel;
+import com.college.hotlittlepigs.pagination.PageRequestModel;
 import com.college.hotlittlepigs.security.AccessManager;
 import com.college.hotlittlepigs.user.dto.UserLoginServiceDTO;
 import com.college.hotlittlepigs.user.dto.UserUpdateRoleDTO;
@@ -67,6 +67,12 @@ public class UserService implements UserDetailsService {
 
     public User getById(Long id) {
         Optional<User> result = userRepository.findById(id);
+
+        return result.orElseThrow(() -> new NotFoundException("User not found !"));
+    }
+
+    public User getByEmail(String email) {
+        Optional<User> result = userRepository.findByEmail(email);
 
         return result.orElseThrow(() -> new NotFoundException("User not found !"));
     }

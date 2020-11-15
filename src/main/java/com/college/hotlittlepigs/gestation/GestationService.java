@@ -1,8 +1,8 @@
 package com.college.hotlittlepigs.gestation;
 
 import com.college.hotlittlepigs.gestation.expcetion.GestationNotFound;
-import com.college.hotlittlepigs.model.PageModel;
-import com.college.hotlittlepigs.model.PageRequestModel;
+import com.college.hotlittlepigs.pagination.PageModel;
+import com.college.hotlittlepigs.pagination.PageRequestModel;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

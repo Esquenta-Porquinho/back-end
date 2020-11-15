@@ -1,8 +1,8 @@
 package com.college.hotlittlepigs.controllers;
 
 import com.college.hotlittlepigs.controllers.dto.ControllersSaveDTO;
-import com.college.hotlittlepigs.model.PageModel;
-import com.college.hotlittlepigs.model.PageRequestModel;
+import com.college.hotlittlepigs.pagination.PageModel;
+import com.college.hotlittlepigs.pagination.PageRequestModel;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

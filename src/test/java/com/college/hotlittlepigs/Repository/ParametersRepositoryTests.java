@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import com.college.hotlittlepigs.box.Box;
 import com.college.hotlittlepigs.box.BoxRepository;
-import com.college.hotlittlepigs.model.PageRequestModel;
+import com.college.hotlittlepigs.pagination.PageRequestModel;
 import com.college.hotlittlepigs.parameters.Parameters;
 import com.college.hotlittlepigs.parameters.ParametersRepository;
 

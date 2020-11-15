@@ -4,8 +4,8 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
-import com.college.hotlittlepigs.model.PageModel;
-import com.college.hotlittlepigs.model.PageRequestModel;
+import com.college.hotlittlepigs.pagination.PageModel;
+import com.college.hotlittlepigs.pagination.PageRequestModel;
 import com.college.hotlittlepigs.parameters.dto.ParametersSaveDTO;
 
 import org.springframework.http.HttpStatus;

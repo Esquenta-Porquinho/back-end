@@ -2,8 +2,8 @@ package com.college.hotlittlepigs.meansurement;
 
 import com.college.hotlittlepigs.meansurement.dto.MeasurementListSaveDTO;
 import com.college.hotlittlepigs.meansurement.dto.MeasurementSaveDTO;
-import com.college.hotlittlepigs.model.PageModel;
-import com.college.hotlittlepigs.model.PageRequestModel;
+import com.college.hotlittlepigs.pagination.PageModel;
+import com.college.hotlittlepigs.pagination.PageRequestModel;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -4,8 +4,8 @@ import java.util.Optional;
 
 import com.college.hotlittlepigs.box.Box;
 import com.college.hotlittlepigs.exception.common.NotFoundException;
-import com.college.hotlittlepigs.model.PageModel;
-import com.college.hotlittlepigs.model.PageRequestModel;
+import com.college.hotlittlepigs.pagination.PageModel;
+import com.college.hotlittlepigs.pagination.PageRequestModel;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

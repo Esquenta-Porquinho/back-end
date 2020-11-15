@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import com.college.hotlittlepigs.matrix.Matrix;
 import com.college.hotlittlepigs.matrix.MatrixRepository;
-import com.college.hotlittlepigs.model.PageRequestModel;
+import com.college.hotlittlepigs.pagination.PageRequestModel;
 
 import org.junit.FixMethodOrder;
 import org.junit.Test;
