@@ -7,7 +7,7 @@ import java.util.Optional;
 
 import com.college.hotlittlepigs.controllers.Controller;
 import com.college.hotlittlepigs.controllers.ControllersRepository;
-import com.college.hotlittlepigs.log_controllers.LogControllers;
+import com.college.hotlittlepigs.log_controllers.LogController;
 import com.college.hotlittlepigs.log_controllers.LogControllersRepository;
 import com.college.hotlittlepigs.model.PageRequestModel;
 
@@ -32,8 +32,8 @@ public class LogControllerRepositoryTests {
     public void saveTest(){
         Optional<Controller> request = controllersRepository.findById(1L);
         Controller controller = request.get();
-        LogControllers log = new LogControllers(null, new Date(), true, controller);
-        LogControllers createdLog = logControllersRepository.save(log);
+        LogController log = new LogController(null, new Date(), true, controller);
+        LogController createdLog = logControllersRepository.save(log);
 
         assertThat(createdLog.getId()).isEqualTo(1L);    
     }
@@ -41,7 +41,7 @@ public class LogControllerRepositoryTests {
     @Test
     public void findAllByControllerIdTest(){
         PageRequestModel prm = new PageRequestModel();
-        Page<LogControllers> page = logControllersRepository.findAllByControllerId(1L, prm.toSpringPageRequest());
+        Page<LogController> page = logControllersRepository.findAllByControllerId(1L, prm.toSpringPageRequest());
         assertThat(page.getTotalElements()).isEqualTo(1);
     }
 

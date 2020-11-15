@@ -1,7 +1,7 @@
 package com.college.hotlittlepigs.controllers;
 
 import com.college.hotlittlepigs.box.Box;
-import com.college.hotlittlepigs.log_controllers.LogControllers;
+import com.college.hotlittlepigs.log_controllers.LogController;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -36,5 +36,5 @@ public class Controller implements Serializable {
 
   @JsonIgnore
   @OneToMany(mappedBy = "controller")
-  private List<LogControllers> logs = new ArrayList<>();
+  private List<LogController> logs = new ArrayList<>();
 }
