@@ -1,7 +1,8 @@
 package com.college.hotlittlepigs.box;
 
 import com.college.hotlittlepigs.box.dto.BoxUpdateDTO;
-import com.college.hotlittlepigs.exception.NotFoundException;
+import com.college.hotlittlepigs.box.exception.BoxNotFoundException;
+import com.college.hotlittlepigs.box.exception.ParametersNotFoundException;
 import com.college.hotlittlepigs.gestation.Gestation;
 import com.college.hotlittlepigs.model.PageModel;
 import com.college.hotlittlepigs.model.PageRequestModel;
@@ -31,13 +32,13 @@ public class BoxService {
 
   public Box getById(Long id) {
     Optional<Box> result = repository.findById(id);
-    if (result.isEmpty()) throw new NotFoundException("Box not found !!");
+    if (result.isEmpty()) throw new BoxNotFoundException();
     return result.get();
   }
 
   public Box getByNumber(int number) {
     Optional<Box> result = repository.findBoxByNumberAndStatus(number, true);
-    if (result.isEmpty()) throw new NotFoundException("Box not found !!");
+    if (result.isEmpty()) throw new BoxNotFoundException();
     return result.get();
   }
 
@@ -66,7 +67,7 @@ public class BoxService {
     Box box = getByNumber(number);
     List<Gestation> gestations = box.getGestations();
 
-    if (gestations.isEmpty()) throw new NotFoundException("Parameters not found !!");
+    if (gestations.isEmpty()) throw new ParametersNotFoundException();
 
     Gestation gestation = gestations.get(gestations.size() - 1);
     Date date = gestation.getEffectiveParturition();

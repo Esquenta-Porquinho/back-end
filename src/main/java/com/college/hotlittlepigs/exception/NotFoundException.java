@@ -1,12 +1,10 @@
 package com.college.hotlittlepigs.exception;
 
+public class NotFoundException extends RuntimeException {
 
-public class NotFoundException extends RuntimeException{
-    
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    public NotFoundException(String msg) {
-        super(msg);
-    }
-
+  public NotFoundException(String msg) {
+    super(msg);
+  }
 }
