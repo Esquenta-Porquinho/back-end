@@ -17,7 +17,7 @@ import java.util.Map;
 @RestController
 public class ControllersResource {
 
-  private ControllersService service;
+  private final ControllersService service;
 
   @Secured({"ROLE_ADMIN"})
   @PostMapping()

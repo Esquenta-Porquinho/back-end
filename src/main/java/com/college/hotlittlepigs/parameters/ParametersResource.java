@@ -18,7 +18,7 @@ import java.util.Map;
 @RestController
 public class ParametersResource {
 
-  private ParametersService service;
+  private final ParametersService service;
 
   @Secured({"ROLE_MANAGER", "ROLE_SIMPLE"})
   @PreAuthorize("@logHandler.saveLog('Create new Parameters')")

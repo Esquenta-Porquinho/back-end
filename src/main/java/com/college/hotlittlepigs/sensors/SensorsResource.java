@@ -16,7 +16,7 @@ import java.util.Map;
 @RequestMapping(value = "sensors")
 @RestController
 public class SensorsResource {
-  private SensorsService service;
+  private final SensorsService service;
 
   @Secured({"ROLE_ADMIN"})
   @PostMapping()

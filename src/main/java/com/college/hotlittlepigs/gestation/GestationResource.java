@@ -17,7 +17,7 @@ import java.util.Map;
 @RequestMapping(value = "gestation")
 @RestController
 public class GestationResource {
-  private GestationService service;
+  private final GestationService service;
 
   @Secured({"ROLE_MANAGER", "ROLE_SIMPLE"})
   @PreAuthorize("@logHandler.saveLog('Create new Gestation')")

@@ -17,7 +17,7 @@ import java.util.Map;
 @RestController
 public class MeasurementResource {
 
-  private MeasurementService service;
+  private final MeasurementService service;
 
   @Secured({"ROLE_ADMIN"})
   @PostMapping()

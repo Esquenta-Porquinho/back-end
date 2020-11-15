@@ -24,10 +24,10 @@ import java.util.Map;
 @RequestMapping(value = "users")
 @RestController
 public class UserResource {
-  private UserService userService;
-  private LogService logService;
-  private JwtManager jwtManager;
-  private AuthenticationManager authManager;
+  private final UserService userService;
+  private final LogService logService;
+  private final JwtManager jwtManager;
+  private final AuthenticationManager authManager;
 
   @PostMapping()
   public ResponseEntity<User> save(@RequestBody @Valid UserSaveDTO userDTO) {

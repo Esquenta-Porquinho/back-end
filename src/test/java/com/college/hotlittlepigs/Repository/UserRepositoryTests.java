@@ -69,7 +69,6 @@ public class UserRepositoryTests {
     Page<User> page = userRepository.findAllNotAdmin(Role.ADMIN, prm.toSpringPageRequest());
     assertThat(page.getTotalElements()).isEqualTo(1);
   }
-  ;
 
   @Test
   public void loginTest() {
