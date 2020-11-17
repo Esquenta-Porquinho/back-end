@@ -26,9 +26,7 @@ public class GestationService {
 
   public Gestation getById(Long id) {
     var result = repository.findById(id);
-    if (result.isEmpty()) throw new GestationNotFound();
-
-    return result.get();
+    return result.orElseThrow(GestationNotFound::new);
   }
 
   public Gestation updateGestation(Long id, Gestation gestation) {

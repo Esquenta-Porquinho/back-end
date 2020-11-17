@@ -28,9 +28,7 @@ public class ParametersService {
 
   public Parameters getById(Long id) {
     var result = repository.findById(id);
-    if (result.isEmpty()) throw new ParametersNotFoundException();
-
-    return result.get();
+    return result.orElseThrow(ParametersNotFoundException::new);
   }
 
   public PageModel<Parameters> listAllByBox(Long id, PageRequestModel pr) {
@@ -55,7 +53,6 @@ public class ParametersService {
 
   public Parameters geyByActiveBox(Box box, Double week) {
     var result = repository.findByBoxIdAndWeeksAndStatusIsTrue(box.getId(), week);
-    if (result.isEmpty()) throw new ParametersNotFoundException();
-    return result.get();
+    return result.orElseThrow(ParametersNotFoundException::new);
   }
 }

@@ -2,7 +2,6 @@ package com.college.hotlittlepigs.security;
 
 import com.college.hotlittlepigs.user.UserService;
 import com.college.hotlittlepigs.user.enums.Role;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;

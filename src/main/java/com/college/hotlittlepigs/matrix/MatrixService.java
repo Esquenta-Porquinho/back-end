@@ -26,9 +26,7 @@ public class MatrixService {
 
   public Matrix getById(Long id) {
     var result = repository.findById(id);
-    if (result.isEmpty()) throw new MatrixNotFoundException();
-
-    return result.get();
+    return result.orElseThrow(MatrixNotFoundException::new);
   }
 
   public Matrix updateStatus(Long id, Boolean status) {
