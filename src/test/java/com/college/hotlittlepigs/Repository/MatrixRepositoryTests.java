@@ -6,18 +6,14 @@ import com.college.hotlittlepigs.pagination.PageRequestModel;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
-@FixMethodOrder(MethodSorters.DEFAULT)
+@FixMethodOrder
 @SpringBootTest
 public class MatrixRepositoryTests {
 
@@ -25,24 +21,24 @@ public class MatrixRepositoryTests {
 
   @Test
   public void saveTest() {
-    Matrix newMatrix = new Matrix(null, 39, true, null);
-    Matrix createdMatrix = matrixRepository.save(newMatrix);
+    var newMatrix = new Matrix(null, 39, true, null);
+    var createdMatrix = matrixRepository.save(newMatrix);
 
     assertThat(createdMatrix.getId()).isEqualTo(1L);
   }
 
   @Test
   public void findAllTest() {
-    PageRequestModel prm = new PageRequestModel();
-    Page<Matrix> page = matrixRepository.findAll(prm.toSpringPageRequest());
+    var prm = new PageRequestModel();
+    var page = matrixRepository.findAll(prm.toSpringPageRequest());
 
     assertThat(page.getTotalElements()).isEqualTo(1);
   }
 
   @Test
   public void getByIdTest() {
-    Optional<Matrix> result = matrixRepository.findById(1L);
-    Matrix matrix = result.get();
+    var result = matrixRepository.findById(1L);
+    var matrix = result.get();
 
     assertThat(matrix.getNumber()).isEqualTo(39);
   }
