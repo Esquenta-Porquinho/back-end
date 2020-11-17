@@ -14,10 +14,10 @@ import java.util.List;
 public class JwtManager {
 
   public UserLoginResponseDTO createToken(String email, List<String> roles) {
-    Calendar calendar = Calendar.getInstance();
+    var calendar = Calendar.getInstance();
     calendar.add(Calendar.DAY_OF_MONTH, SecurityConstant.JWT_EXP_DAYS);
 
-    String jwt =
+    var jwt =
         Jwts.builder()
             .setSubject(email)
             .setExpiration(calendar.getTime())

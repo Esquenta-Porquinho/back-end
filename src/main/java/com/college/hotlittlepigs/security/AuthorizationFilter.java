@@ -3,7 +3,6 @@ package com.college.hotlittlepigs.security;
 import com.college.hotlittlepigs.exception.common.Error;
 import com.college.hotlittlepigs.exception.common.JwtException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.jsonwebtoken.Claims;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,7 +18,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -30,16 +28,16 @@ public class AuthorizationFilter extends OncePerRequestFilter {
   protected void doFilterInternal(
       HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
       throws ServletException, IOException {
-    String jwt = request.getHeader(HttpHeaders.AUTHORIZATION);
+    var jwt = request.getHeader(HttpHeaders.AUTHORIZATION);
     if (jwt == null || !jwt.startsWith(SecurityConstant.JWT_PROVIDER))
       throw new JwtException(SecurityConstant.JWT_INVALID_MSG);
 
     jwt = jwt.replace(SecurityConstant.JWT_PROVIDER, "");
 
     try {
-      Claims claims = new JwtManager().parseToken(jwt);
-      String email = claims.getSubject();
-      List<String> roles = (List<String>) claims.get(SecurityConstant.JWT_ROLE_KEY);
+      var claims = new JwtManager().parseToken(jwt);
+      var email = claims.getSubject();
+      var roles = (List<String>) claims.get(SecurityConstant.JWT_ROLE_KEY);
 
       List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
       roles.forEach(role -> grantedAuthorities.add(new SimpleGrantedAuthority(role)));
@@ -50,11 +48,11 @@ public class AuthorizationFilter extends OncePerRequestFilter {
       SecurityContextHolder.getContext().setAuthentication(authentication);
 
     } catch (Exception e) {
-      Error error = new Error(HttpStatus.UNAUTHORIZED.value(), e.getMessage(), new Date(), null);
-      PrintWriter writer = response.getWriter();
+      var error = new Error(HttpStatus.UNAUTHORIZED.value(), e.getMessage(), new Date(), null);
+      var writer = response.getWriter();
 
-      ObjectMapper mapper = new ObjectMapper();
-      String errorString = mapper.writeValueAsString(error);
+      var mapper = new ObjectMapper();
+      var errorString = mapper.writeValueAsString(error);
       writer.write(errorString);
 
       response.setContentType(MediaType.APPLICATION_JSON_VALUE);
