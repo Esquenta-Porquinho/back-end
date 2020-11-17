@@ -60,15 +60,13 @@ public class UserService implements UserDetailsService {
   }
 
   public User getById(Long id) {
-    var result = repository.findById(id);
-
-    return result.orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    var user = repository.findById(id);
+    return user.orElseThrow(() -> new UsernameNotFoundException("User not found"));
   }
 
   public User getByEmail(String email) {
-    var result = repository.findByEmail(email);
-
-    return result.orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    var user = repository.findByEmail(email);
+    return user.orElseThrow(() -> new UsernameNotFoundException("User not found"));
   }
 
   public PageModel<User> listAll(PageRequestModel pr) {

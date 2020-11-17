@@ -26,8 +26,8 @@ public class SensorsService {
   }
 
   public Sensors getById(Long id) {
-    var result = repository.findById(id);
-    return result.orElseThrow(SensorNotFoundException::new);
+    var sensor = repository.findById(id);
+    return sensor.orElseThrow(SensorNotFoundException::new);
   }
 
   public PageModel<Sensors> listAllByBox(Long id, PageRequestModel pr) {
