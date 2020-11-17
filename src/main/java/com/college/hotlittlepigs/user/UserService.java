@@ -7,6 +7,7 @@ import com.college.hotlittlepigs.security.AccessManager;
 import com.college.hotlittlepigs.user.dto.UserLoginServiceDTO;
 import com.college.hotlittlepigs.user.dto.UserUpdateRoleDTO;
 import com.college.hotlittlepigs.user.enums.Role;
+import com.college.hotlittlepigs.user.exception.UserNotFoundException;
 import com.college.hotlittlepigs.user.util.HashUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -61,12 +62,12 @@ public class UserService implements UserDetailsService {
 
   public User getById(Long id) {
     var user = repository.findById(id);
-    return user.orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    return user.orElseThrow(UserNotFoundException::new);
   }
 
   public User getByEmail(String email) {
     var user = repository.findByEmail(email);
-    return user.orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    return user.orElseThrow(UserNotFoundException::new);
   }
 
   public PageModel<User> listAll(PageRequestModel pr) {
