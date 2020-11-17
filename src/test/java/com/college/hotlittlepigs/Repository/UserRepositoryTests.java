@@ -59,9 +59,9 @@ public class UserRepositoryTests {
   }
 
   @Test
-  public void findAllNotAdmin() {
+  public void findAllByRoleIsNot() {
     var prm = new PageRequestModel();
-    var page = userRepository.findAllNotAdmin(Role.ADMIN, prm.toSpringPageRequest());
+    var page = userRepository.findAllByRoleIsNot(Role.ADMIN, prm.toSpringPageRequest());
     assertThat(page.getTotalElements()).isEqualTo(1);
   }
 
