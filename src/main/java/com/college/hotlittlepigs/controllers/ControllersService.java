@@ -46,8 +46,8 @@ public class ControllersService {
   }
 
   public Controller getById(Long id) {
-    var result = repository.findById(id);
-    return result.orElseThrow(ControllerNotFoundException::new);
+    var controller = repository.findById(id);
+    return controller.orElseThrow(ControllerNotFoundException::new);
   }
 
   public Controller update(Long id, Controller controller) {

@@ -27,8 +27,8 @@ public class ParametersService {
   }
 
   public Parameters getById(Long id) {
-    var result = repository.findById(id);
-    return result.orElseThrow(ParametersNotFoundException::new);
+    var parameters = repository.findById(id);
+    return parameters.orElseThrow(ParametersNotFoundException::new);
   }
 
   public PageModel<Parameters> listAllByBox(Long id, PageRequestModel pr) {
@@ -52,7 +52,7 @@ public class ParametersService {
   }
 
   public Parameters geyByActiveBox(Box box, Double week) {
-    var result = repository.findByBoxIdAndWeeksAndStatusIsTrue(box.getId(), week);
-    return result.orElseThrow(ParametersNotFoundException::new);
+    var parameters = repository.findByBoxIdAndWeeksAndStatusIsTrue(box.getId(), week);
+    return parameters.orElseThrow(ParametersNotFoundException::new);
   }
 }
