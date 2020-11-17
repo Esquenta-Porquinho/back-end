@@ -1,7 +1,6 @@
 package com.college.hotlittlepigs.user;
 
 import com.college.hotlittlepigs.controllers.Controller;
-import com.college.hotlittlepigs.exception.common.NotFoundException;
 import com.college.hotlittlepigs.pagination.PageModel;
 import com.college.hotlittlepigs.pagination.PageRequestModel;
 import com.college.hotlittlepigs.security.AccessManager;
@@ -32,18 +31,21 @@ public class UserService implements UserDetailsService {
   private final UserRepository repository;
   private final AccessManager accessManager;
 
-  public int updateRole(UserUpdateRoleDTO user, Long id) {
-
-    var result = repository.findById(id);
-    if (result.isEmpty()) throw new NotFoundException("User not found !");
+  public int updateRole(UserUpdateRoleDTO userDto, Long id) {
 
     if (!accessManager.isAdmin()) {
-      var checkUser = result.get();
-      if (checkUser.getRole() == Role.ADMIN || user.getRole() == Role.ADMIN)
+      var checkUser = getById(id);
+      if (checkUser.getRole() == Role.ADMIN || userDto.getRole() == Role.ADMIN)
+        // TODO: qual o sentido dessas verificações?
+        //  checkUser.getRole() == Role.ADMIN  // Essa verificação já é feita na controller aqui:
+        //  @Secured({"ROLE_ADMIN", "ROLE_MANAGER"})
+
+        // TODO:  userDto.getRole() == Role.ADMIN //  Se ele já for admin, não faz sentido dar acces
+        //  denied, deixa sobreescrever pra admin denovo
         throw new AccessDeniedException("Access Denied");
     }
 
-    return repository.updateRole(id, user.getRole());
+    return repository.updateRole(id, userDto.getRole());
   }
 
   public User save(User user) {
@@ -79,7 +81,7 @@ public class UserService implements UserDetailsService {
 
   public PageModel<User> listAllNotAdmin(PageRequestModel pr) {
     Pageable pageable = pr.toSpringPageRequest();
-    var page = repository.findAllNotAdmin(Role.ADMIN, pageable);
+    var page = repository.findAllByRoleIsNot(Role.ADMIN, pageable);
 
     return new PageModel<>(
         (int) page.getTotalElements(), page.getSize(), page.getTotalPages(), page.getContent());
