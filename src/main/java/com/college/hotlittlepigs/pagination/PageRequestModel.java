@@ -27,10 +27,10 @@ public class PageRequestModel {
 
   public PageRequest toSpringPageRequest() {
     List<Order> orders = new ArrayList<>();
-    String[] properties = sort.split(",");
-    for (String prop : properties) {
+    var properties = sort.split(",");
+    for (var prop : properties) {
       if (prop.trim().length() > 0) {
-        String column = prop.trim();
+        var column = prop.trim();
 
         if (column.startsWith("-")) {
           column = column.replace("-", "").trim();
