@@ -1,73 +1,65 @@
 package com.college.hotlittlepigs.sensors;
 
-import java.util.Optional;
-
-import com.college.hotlittlepigs.exception.NotFoundException;
-import com.college.hotlittlepigs.model.PageModel;
-import com.college.hotlittlepigs.model.PageRequestModel;
-
+import com.college.hotlittlepigs.exception.common.NotFoundException;
+import com.college.hotlittlepigs.pagination.PageModel;
+import com.college.hotlittlepigs.pagination.PageRequestModel;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import lombok.AllArgsConstructor;
+import java.util.Optional;
 
 @AllArgsConstructor
 @Service
 public class SensorsService {
-    
-    private SensorsRepository sensorsRepository;
 
-    public Sensors save(Sensors sensor){
-        Sensors createdSensor = sensorsRepository.save(sensor);
-        return createdSensor;
-    }
+  private final SensorsRepository repository;
 
-    public PageModel<Sensors> listAll(PageRequestModel pr){
-        Pageable pageable = pr.toSpringPageRequest();
-        Page<Sensors> page = sensorsRepository.findAll(pageable);
+  public Sensors save(Sensors sensor) {
+    return repository.save(sensor);
+  }
 
-        PageModel<Sensors> pm = new PageModel<>((int) page.getTotalElements(), page.getSize(), page.getTotalPages(),
-                page.getContent());
-        return pm;
-    }
+  public PageModel<Sensors> listAll(PageRequestModel pr) {
+    Pageable pageable = pr.toSpringPageRequest();
+    Page<Sensors> page = repository.findAll(pageable);
 
-    public Sensors getById(Long id){
-        Optional<Sensors> result = sensorsRepository.findById(id);
-        if(!result.isPresent()) throw new NotFoundException("Sensor not found !!");
+    return new PageModel<>(
+        (int) page.getTotalElements(), page.getSize(), page.getTotalPages(), page.getContent());
+  }
 
-        return result.get();
-    }
+  public Sensors getById(Long id) {
+    Optional<Sensors> result = repository.findById(id);
+    if (result.isEmpty()) throw new NotFoundException("Sensor not found !!");
 
-    public PageModel<Sensors> listAllByBox(Long id, PageRequestModel pr){
-        Pageable pageable = pr.toSpringPageRequest();
-        Page<Sensors> page = sensorsRepository.findAllByBoxId(id, pageable);
+    return result.get();
+  }
 
-        PageModel<Sensors> pm = new PageModel<>((int) page.getTotalElements(), page.getSize(), page.getTotalPages(),
-                page.getContent());
-        return pm;
-    }
+  public PageModel<Sensors> listAllByBox(Long id, PageRequestModel pr) {
+    Pageable pageable = pr.toSpringPageRequest();
+    Page<Sensors> page = repository.findAllByBoxId(id, pageable);
 
-    public PageModel<Sensors> listAllByStatus(Boolean status, PageRequestModel pr){
-        Pageable pageable = pr.toSpringPageRequest();
-        Page<Sensors> page = sensorsRepository.findAllByStatus(status, pageable);
+    return new PageModel<>(
+        (int) page.getTotalElements(), page.getSize(), page.getTotalPages(), page.getContent());
+  }
 
-        PageModel<Sensors> pm = new PageModel<>((int) page.getTotalElements(), page.getSize(), page.getTotalPages(),
-                page.getContent());
-        return pm;
-    }
+  public PageModel<Sensors> listAllByStatus(Boolean status, PageRequestModel pr) {
+    Pageable pageable = pr.toSpringPageRequest();
+    Page<Sensors> page = repository.findAllByStatus(status, pageable);
 
-    public Sensors updateSensors(Long id, Sensors sensor){
-        Sensors updatableSensors = this.getById(id);
-        sensor.setId(updatableSensors.getId());
-        return this.save(sensor);
-    }
+    return new PageModel<>(
+        (int) page.getTotalElements(), page.getSize(), page.getTotalPages(), page.getContent());
+  }
 
-    public Sensors updateStatus(Long id, Boolean status){
-        Sensors sensor = this.getById(id);
-        sensor.setStatus(status);
-        Sensors newSensors = this.save(sensor);
-        return newSensors;
-    }
+  public Sensors updateSensors(Long id, Sensors sensor) {
+    Sensors updatableSensors = this.getById(id);
+    sensor.setId(updatableSensors.getId());
+    return save(sensor);
+  }
 
+  public Sensors updateStatus(Long id, Boolean status) {
+    Sensors sensor = this.getById(id);
+    sensor.setStatus(status);
+    return save(sensor);
+  }
 }

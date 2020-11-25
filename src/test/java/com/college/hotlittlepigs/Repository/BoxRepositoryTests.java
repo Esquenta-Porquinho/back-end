@@ -1,13 +1,8 @@
 package com.college.hotlittlepigs.Repository;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.Optional;
-
 import com.college.hotlittlepigs.box.Box;
 import com.college.hotlittlepigs.box.BoxRepository;
-import com.college.hotlittlepigs.model.PageRequestModel;
-
+import com.college.hotlittlepigs.pagination.PageRequestModel;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,43 +12,46 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
 @RunWith(SpringRunner.class)
 @FixMethodOrder(MethodSorters.DEFAULT)
 @SpringBootTest
 public class BoxRepositoryTests {
-    
-    @Autowired private BoxRepository boxRepository;
 
-    @Test
-    public void saveTest(){
-        Box newBox = new Box(null, 2, "Piso", "4", true, null, null, null, null);
-        Box createdBox = boxRepository.save(newBox);
+  @Autowired private BoxRepository boxRepository;
 
-        assertThat(createdBox.getId()).isEqualTo(1L);    
-    }
+  @Test
+  public void saveTest() {
+    Box newBox = new Box(null, 2, "Piso", "4", true, null, null, null, null);
+    Box createdBox = boxRepository.save(newBox);
 
-    @Test
-    public void findAllTest(){
-        PageRequestModel prm = new PageRequestModel();
-        Page<Box> page = boxRepository.findAll(prm.toSpringPageRequest());
-        
-        assertThat(page.getTotalElements()).isEqualTo(1);
-    }
+    assertThat(createdBox.getId()).isEqualTo(1L);
+  }
 
-    @Test
-    public void getByIdTest() {
-        Optional<Box> result = boxRepository.findById(1L);
-        Box box = result.get();
+  @Test
+  public void findAllTest() {
+    PageRequestModel prm = new PageRequestModel();
+    Page<Box> page = boxRepository.findAll(prm.toSpringPageRequest());
 
-        assertThat(box.getNumber()).isEqualTo(2);
-    }
+    assertThat(page.getTotalElements()).isEqualTo(1);
+  }
 
-    @Test
-    public void findByNumberByStatus(){
-        Optional<Box> result = boxRepository.findByNumberByStatus(2, true);
-        Box box = result.get();
+  @Test
+  public void getByIdTest() {
+    Optional<Box> result = boxRepository.findById(1L);
+    Box box = result.get();
 
-        assertThat(box.getId()).isEqualTo(1L);
-    }
+    assertThat(box.getNumber()).isEqualTo(2);
+  }
 
+  @Test
+  public void findByNumberByStatus() {
+    Optional<Box> result = boxRepository.findBoxByNumberAndStatus(2, true);
+    Box box = result.get();
+
+    assertThat(box.getId()).isEqualTo(1L);
+  }
 }

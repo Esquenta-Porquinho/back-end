@@ -1,70 +1,64 @@
 package com.college.hotlittlepigs.parameters;
 
-import java.util.Optional;
-
 import com.college.hotlittlepigs.box.Box;
-import com.college.hotlittlepigs.exception.NotFoundException;
-import com.college.hotlittlepigs.model.PageModel;
-import com.college.hotlittlepigs.model.PageRequestModel;
-
+import com.college.hotlittlepigs.pagination.PageModel;
+import com.college.hotlittlepigs.pagination.PageRequestModel;
+import com.college.hotlittlepigs.parameters.expcetion.ParametersNotFoundException;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import lombok.AllArgsConstructor;
+import java.util.Optional;
 
 @AllArgsConstructor
 @Service
 public class ParametersService {
-    
-    private ParametersRepository parametersRepository;
 
-    public Parameters save(Parameters parameters){
-        Parameters newParameters = parametersRepository.save(parameters);
-        return newParameters;
-    }
+  private final ParametersRepository repository;
 
-    public PageModel<Parameters> listAll(PageRequestModel pr){
-        Pageable pageable = pr.toSpringPageRequest();
-        Page<Parameters> page = parametersRepository.findAll(pageable);
+  public Parameters save(Parameters parameters) {
+    return repository.save(parameters);
+  }
 
-        PageModel<Parameters> pm = new PageModel<>((int) page.getTotalElements(), page.getSize(), page.getTotalPages(),
-                page.getContent());
-        return pm;
-    }
+  public PageModel<Parameters> listAll(PageRequestModel pr) {
+    Pageable pageable = pr.toSpringPageRequest();
+    Page<Parameters> page = repository.findAll(pageable);
 
-    public Parameters getById(Long id){
-        Optional<Parameters> result = parametersRepository.findById(id);
-        if(!result.isPresent()) throw new NotFoundException("Parameters not found !!");
+    return new PageModel<>(
+        (int) page.getTotalElements(), page.getSize(), page.getTotalPages(), page.getContent());
+  }
 
-        return result.get();
-    }
-    
-    public PageModel<Parameters> listAllByBox(Long id, PageRequestModel pr){
-        Pageable pageable = pr.toSpringPageRequest();
-        Page<Parameters> page = parametersRepository.findAllByBoxId(id, pageable);
+  public Parameters getById(Long id) {
+    Optional<Parameters> result = repository.findById(id);
+    if (result.isEmpty()) throw new ParametersNotFoundException();
 
-        PageModel<Parameters> pm = new PageModel<>((int) page.getTotalElements(), page.getSize(), page.getTotalPages(),
-                page.getContent());
-        return pm;
-    }
+    return result.get();
+  }
 
-    public Parameters updateParameters(Long id, Parameters parameters){
-        Parameters updatableParameters = this.getById(id);
-        parameters.setId(updatableParameters.getId());
-        return this.save(parameters);
-    }
+  public PageModel<Parameters> listAllByBox(Long id, PageRequestModel pr) {
+    Pageable pageable = pr.toSpringPageRequest();
+    Page<Parameters> page = repository.findAllByBoxId(id, pageable);
 
-    public Parameters updateStatus(Long id, Boolean status){
-        Parameters parameters = this.getById(id);
-        parameters.setStatus(status);
-        Parameters newParameters = this.save(parameters);
-        return newParameters;
-    }
+    return new PageModel<>(
+        (int) page.getTotalElements(), page.getSize(), page.getTotalPages(), page.getContent());
+  }
 
-    public Parameters getParametersByActiveByBox(Box box, Double week){
-        Optional<Parameters> result = parametersRepository.findActiveByWeekByBox(box.getId(), week);
-        if(!result.isPresent()) throw new NotFoundException("Parameters not found !!");
-        return result.get();
-    }
+  public Parameters updateParameters(Long id, Parameters parameters) {
+    Parameters updatableParameters = this.getById(id);
+    parameters.setId(updatableParameters.getId());
+    return save(parameters);
+  }
+
+  public Parameters updateStatus(Long id, Boolean status) {
+    Parameters parameters = this.getById(id);
+    parameters.setStatus(status);
+    return save(parameters);
+  }
+
+  public Parameters geyByActiveBox(Box box, Double week) {
+    Optional<Parameters> result = repository.findByBoxIdAndWeeksAndStatusIsTrue(box.getId(), week);
+    if (result.isEmpty()) throw new ParametersNotFoundException();
+    return result.get();
+  }
 }

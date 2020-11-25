@@ -6,9 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ControllersRepository extends JpaRepository<Controllers, Long>{
+public interface ControllersRepository extends JpaRepository<Controller, Long> {
 
-    public Page<Controllers> findAllByStatus(Boolean status, Pageable pageable);
+  Page<Controller> findAllByStatus(Boolean status, Pageable pageable);
 
-    public Page<Controllers> findAllByBoxId(Long id, Pageable pageable);
+  Page<Controller> findAllByBoxId(Long id, Pageable pageable);
 }

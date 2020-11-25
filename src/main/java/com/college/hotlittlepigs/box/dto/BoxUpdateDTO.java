@@ -1,15 +1,15 @@
 package com.college.hotlittlepigs.box.dto;
 
-import javax.validation.constraints.NotBlank;
-
 import lombok.Data;
 
-@Data
-public class BoxUpdateDTO{
-    
-    @NotBlank(message = "The controller of the Box is required !!")
-    private String controller;
+import javax.validation.constraints.NotBlank;
 
-    @NotBlank(message = "The area of the Box is required !!")
-    private String area;
+@Data
+public class BoxUpdateDTO {
+
+  @NotBlank(message = "The controller of the Box is required")
+  private String controller;
+
+  @NotBlank(message = "The area of the Box is required")
+  private String area;
 }

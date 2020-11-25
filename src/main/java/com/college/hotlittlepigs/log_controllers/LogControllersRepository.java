@@ -6,8 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface LogControllersRepository extends JpaRepository<LogControllers, Long>{
-    
-    public Page<LogControllers> findAllByControllerId(Long id, Pageable pageable);
+public interface LogControllersRepository extends JpaRepository<LogController, Long> {
 
+  Page<LogController> findAllByControllerId(Long id, Pageable pageable);
 }

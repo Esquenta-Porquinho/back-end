@@ -1,39 +1,35 @@
 package com.college.hotlittlepigs.log_controllers;
 
-import java.util.Date;
-
-import com.college.hotlittlepigs.controllers.Controllers;
-import com.college.hotlittlepigs.model.PageModel;
-import com.college.hotlittlepigs.model.PageRequestModel;
-
+import com.college.hotlittlepigs.controllers.Controller;
+import com.college.hotlittlepigs.pagination.PageModel;
+import com.college.hotlittlepigs.pagination.PageRequestModel;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import lombok.AllArgsConstructor;
+import java.util.Date;
 
 @AllArgsConstructor
 @Service
 public class LogControllersService {
-    
-    private LogControllersRepository logControllersRepository;
 
-    public LogControllers save(Boolean status, Controllers controller){
-        LogControllers logControllers = new LogControllers();
-        logControllers.setController(controller);
-        logControllers.setDatetime(new Date());
-        logControllers.setStatus(status);
+  private final LogControllersRepository repository;
 
-        LogControllers newLogControllers = logControllersRepository.save(logControllers);
-        return newLogControllers;
-    }
+  public LogController save(Boolean status, Controller controller) {
+    LogController logController = new LogController();
+    logController.setController(controller);
+    logController.setDatetime(new Date());
+    logController.setStatus(status);
 
-    public PageModel<LogControllers> listAllByControllerId(Long id, PageRequestModel pr) {
-        Pageable pageable = pr.toSpringPageRequest();
-        Page<LogControllers> page = logControllersRepository.findAllByControllerId(id, pageable);
+    return repository.save(logController);
+  }
 
-        PageModel<LogControllers> pm = new PageModel<>((int)page.getTotalElements(), page.getSize(), page.getTotalPages(), page.getContent());
-        return pm;
-    }
+  public PageModel<LogController> listAllByControllerId(Long id, PageRequestModel pr) {
+    Pageable pageable = pr.toSpringPageRequest();
+    Page<LogController> page = repository.findAllByControllerId(id, pageable);
 
+    return new PageModel<>(
+        (int) page.getTotalElements(), page.getSize(), page.getTotalPages(), page.getContent());
+  }
 }

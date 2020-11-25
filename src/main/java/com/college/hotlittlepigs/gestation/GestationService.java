@@ -1,74 +1,63 @@
 package com.college.hotlittlepigs.gestation;
 
-import java.util.Optional;
-
-import com.college.hotlittlepigs.exception.NotFoundException;
-import com.college.hotlittlepigs.model.PageModel;
-import com.college.hotlittlepigs.model.PageRequestModel;
-
+import com.college.hotlittlepigs.gestation.expcetion.GestationNotFound;
+import com.college.hotlittlepigs.pagination.PageModel;
+import com.college.hotlittlepigs.pagination.PageRequestModel;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import lombok.AllArgsConstructor;
+import java.util.Optional;
 
 @AllArgsConstructor
 @Service
 public class GestationService {
-    private GestationRepository gestationRepository;
+  private final GestationRepository repository;
 
-    public Gestation save(Gestation gestation) {
-        Gestation newGestation = gestationRepository.save(gestation);
-        return newGestation;
-    }
+  public Gestation save(Gestation gestation) {
+    return repository.save(gestation);
+  }
 
-    public PageModel<Gestation> listAll(PageRequestModel pr) {
-        Pageable pageable = pr.toSpringPageRequest();
-        Page<Gestation> page = gestationRepository.findAll(pageable);
+  public PageModel<Gestation> listAll(PageRequestModel pr) {
+    Pageable pageable = pr.toSpringPageRequest();
+    Page<Gestation> page = repository.findAll(pageable);
 
-        PageModel<Gestation> pm = new PageModel<>((int) page.getTotalElements(), page.getSize(), page.getTotalPages(),
-                page.getContent());
-        return pm;
-    }
+    return new PageModel<>(
+        (int) page.getTotalElements(), page.getSize(), page.getTotalPages(), page.getContent());
+  }
 
-    public Gestation getById(Long id) {
-        Optional<Gestation> result = gestationRepository.findById(id);
-        if(!result.isPresent()) throw new NotFoundException("Gestation not found !!");
+  public Gestation getById(Long id) {
+    Optional<Gestation> result = repository.findById(id);
+    if (result.isEmpty()) throw new GestationNotFound();
 
-        return result.get();
-    }
+    return result.get();
+  }
 
-    public Gestation updateGestation(Long id, Gestation gestation){
-        gestation.setId(id);
-        Gestation updatedGestation = gestationRepository.save(gestation);
-        return updatedGestation;
-    }
+  public Gestation updateGestation(Long id, Gestation gestation) {
+    gestation.setId(id);
+    return save(gestation);
+  }
 
-    public Gestation updateStatus(Long id, Boolean status){
-        Gestation gestation = this.getById(id);
-        gestation.setStatus(status);
-        Gestation newGestation = this.save(gestation);
-        return newGestation;
-    }
+  public Gestation updateStatus(Long id, Boolean status) {
+    Gestation gestation = getById(id);
+    gestation.setStatus(status);
+    return save(gestation);
+  }
 
-    public PageModel<Gestation> listAllByMatrix(Long id, PageRequestModel pr) {
-        Pageable pageable = pr.toSpringPageRequest();
-        Page<Gestation> page = gestationRepository.findAllByMatrixId(id, pageable);
+  public PageModel<Gestation> listAllByMatrix(Long id, PageRequestModel pr) {
+    Pageable pageable = pr.toSpringPageRequest();
+    Page<Gestation> page = repository.findAllByMatrixId(id, pageable);
 
-        PageModel<Gestation> pm = new PageModel<>((int) page.getTotalElements(), page.getSize(), page.getTotalPages(),
-                page.getContent());
-        return pm;
-    }
+    return new PageModel<>(
+        (int) page.getTotalElements(), page.getSize(), page.getTotalPages(), page.getContent());
+  }
 
-    public PageModel<Gestation> listAllByBox(Long id, PageRequestModel pr) {
-        Pageable pageable = pr.toSpringPageRequest();
-        Page<Gestation> page = gestationRepository.findAllByBoxId(id, pageable);
+  public PageModel<Gestation> listAllByBox(Long id, PageRequestModel pr) {
+    Pageable pageable = pr.toSpringPageRequest();
+    Page<Gestation> page = repository.findAllByBoxId(id, pageable);
 
-        PageModel<Gestation> pm = new PageModel<>((int) page.getTotalElements(), page.getSize(), page.getTotalPages(),
-                page.getContent());
-        return pm;
-    }
-
-    
-
+    return new PageModel<>(
+        (int) page.getTotalElements(), page.getSize(), page.getTotalPages(), page.getContent());
+  }
 }
