@@ -5,7 +5,6 @@ import com.college.hotlittlepigs.meansurement.dto.MeasurementSaveDTO;
 import com.college.hotlittlepigs.pagination.PageModel;
 import com.college.hotlittlepigs.pagination.PageRequestModel;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +24,7 @@ public class MeasurementService {
 
   public PageModel<Measurement> listAllBySensorId(Long id, PageRequestModel pr) {
     Pageable pageable = pr.toSpringPageRequest();
-    Page<Measurement> page = repository.findAllBySensorId(id, pageable);
+    var page = repository.findAllBySensorId(id, pageable);
 
     return new PageModel<>(
         (int) page.getTotalElements(), page.getSize(), page.getTotalPages(), page.getContent());

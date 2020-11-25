@@ -1,7 +1,6 @@
 package com.college.hotlittlepigs.user;
 
 import com.college.hotlittlepigs.controllers.Controller;
-import com.college.hotlittlepigs.exception.common.NotFoundException;
 import com.college.hotlittlepigs.pagination.PageModel;
 import com.college.hotlittlepigs.pagination.PageRequestModel;
 import com.college.hotlittlepigs.security.AccessManager;
@@ -10,7 +9,6 @@ import com.college.hotlittlepigs.user.dto.UserUpdateRoleDTO;
 import com.college.hotlittlepigs.user.enums.Role;
 import com.college.hotlittlepigs.user.util.HashUtil;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -22,10 +20,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import javax.mail.internet.MimeMessage;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,22 +31,25 @@ public class UserService implements UserDetailsService {
   private final UserRepository repository;
   private final AccessManager accessManager;
 
-  public int updateRole(UserUpdateRoleDTO user, Long id) {
-
-    Optional<User> result = repository.findById(id);
-    if (result.isEmpty()) throw new NotFoundException("User not found !");
+  public int updateRole(UserUpdateRoleDTO userDto, Long id) {
 
     if (!accessManager.isAdmin()) {
-      User checkUser = result.get();
-      if (checkUser.getRole() == Role.ADMIN || user.getRole() == Role.ADMIN)
+      var checkUser = getById(id);
+      if (checkUser.getRole() == Role.ADMIN || userDto.getRole() == Role.ADMIN)
+        // TODO: qual o sentido dessas verificações?
+        //  checkUser.getRole() == Role.ADMIN  // Essa verificação já é feita na controller aqui:
+        //  @Secured({"ROLE_ADMIN", "ROLE_MANAGER"})
+
+        // TODO:  userDto.getRole() == Role.ADMIN //  Se ele já for admin, não faz sentido dar acces
+        //  denied, deixa sobreescrever pra admin denovo
         throw new AccessDeniedException("Access Denied");
     }
 
-    return repository.updateRole(id, user.getRole());
+    return repository.updateRole(id, userDto.getRole());
   }
 
   public User save(User user) {
-    String hash = HashUtil.getSecureHash(user.getPassword());
+    var hash = HashUtil.getSecureHash(user.getPassword());
     user.setPassword(hash);
     user.setRole(Role.ASPIRANT);
     return repository.save(user);
@@ -61,20 +60,20 @@ public class UserService implements UserDetailsService {
   }
 
   public User getById(Long id) {
-    Optional<User> result = repository.findById(id);
+    var result = repository.findById(id);
 
     return result.orElseThrow(() -> new UsernameNotFoundException("User not found"));
   }
 
   public User getByEmail(String email) {
-    Optional<User> result = repository.findByEmail(email);
+    var result = repository.findByEmail(email);
 
     return result.orElseThrow(() -> new UsernameNotFoundException("User not found"));
   }
 
   public PageModel<User> listAll(PageRequestModel pr) {
     Pageable pageable = pr.toSpringPageRequest();
-    Page<User> page = repository.findAll(pageable);
+    var page = repository.findAll(pageable);
 
     return new PageModel<>(
         (int) page.getTotalElements(), page.getSize(), page.getTotalPages(), page.getContent());
@@ -82,7 +81,7 @@ public class UserService implements UserDetailsService {
 
   public PageModel<User> listAllNotAdmin(PageRequestModel pr) {
     Pageable pageable = pr.toSpringPageRequest();
-    Page<User> page = repository.findAllNotAdmin(Role.ADMIN, pageable);
+    var page = repository.findAllByRoleIsNot(Role.ADMIN, pageable);
 
     return new PageModel<>(
         (int) page.getTotalElements(), page.getSize(), page.getTotalPages(), page.getContent());
@@ -90,7 +89,7 @@ public class UserService implements UserDetailsService {
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    User user = getByEmail(username);
+    var user = getByEmail(username);
 
     List<GrantedAuthority> authorities =
         Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()));
@@ -100,8 +99,8 @@ public class UserService implements UserDetailsService {
   }
 
   public UserLoginServiceDTO login(org.springframework.security.core.userdetails.User userSpring) {
-    String email = userSpring.getUsername();
-    List<String> roles =
+    var email = userSpring.getUsername();
+    var roles =
         userSpring.getAuthorities().stream()
             .map(GrantedAuthority::getAuthority)
             .collect(Collectors.toList());
@@ -109,15 +108,15 @@ public class UserService implements UserDetailsService {
   }
 
   public void sendWarnings(Controller controller) {
-    List<User> users = repository.findAllByRole(Role.ADMIN);
+    var users = repository.findAllByRole(Role.ADMIN);
 
-    for (User user : users) {
-      JavaMailSenderImpl sender = new JavaMailSenderImpl();
+    for (var user : users) {
+      var sender = new JavaMailSenderImpl();
       sender.setHost("To define");
       sender.setPort(0);
 
-      MimeMessage message = sender.createMimeMessage();
-      MimeMessageHelper helper = new MimeMessageHelper(message);
+      var message = sender.createMimeMessage();
+      var helper = new MimeMessageHelper(message);
       try {
         helper.setFrom("Esquenta-Porquinho");
         helper.setSubject("Error on controller" + controller.getName());

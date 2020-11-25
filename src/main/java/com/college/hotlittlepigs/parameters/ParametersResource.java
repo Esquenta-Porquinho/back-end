@@ -18,22 +18,22 @@ import java.util.Map;
 @RestController
 public class ParametersResource {
 
-  private ParametersService service;
+  private final ParametersService service;
 
   @Secured({"ROLE_MANAGER", "ROLE_SIMPLE"})
   @PreAuthorize("@logHandler.saveLog('Create new Parameters')")
   @PostMapping()
   public ResponseEntity<Parameters> save(@Valid @RequestBody ParametersSaveDTO parametersSaveDTO) {
-    Parameters parameters = parametersSaveDTO.toParameters();
-    Parameters createdParameters = service.save(parameters);
+    var parameters = parametersSaveDTO.toParameters();
+    var createdParameters = service.save(parameters);
     return ResponseEntity.status(HttpStatus.CREATED).body(createdParameters);
   }
 
   @Secured({"ROLE_MANAGER", "ROLE_SIMPLE"})
   @GetMapping()
   public ResponseEntity<PageModel<Parameters>> listAll(@RequestParam Map<String, String> params) {
-    PageRequestModel pr = new PageRequestModel(params);
-    PageModel<Parameters> pm = service.listAll(pr);
+    var pr = new PageRequestModel(params);
+    var pm = service.listAll(pr);
     return ResponseEntity.ok(pm);
   }
 
@@ -41,15 +41,15 @@ public class ParametersResource {
   @GetMapping("/box/{id}")
   public ResponseEntity<PageModel<Parameters>> listAllByBox(
       @PathVariable("id") Long id, @RequestParam Map<String, String> params) {
-    PageRequestModel pr = new PageRequestModel(params);
-    PageModel<Parameters> pm = service.listAllByBox(id, pr);
+    var pr = new PageRequestModel(params);
+    var pm = service.listAllByBox(id, pr);
     return ResponseEntity.ok(pm);
   }
 
   @Secured({"ROLE_MANAGER", "ROLE_SIMPLE"})
   @GetMapping("/{id}")
   public ResponseEntity<Parameters> getById(@PathVariable("id") Long id) {
-    Parameters parameters = service.getById(id);
+    var parameters = service.getById(id);
     return ResponseEntity.ok(parameters);
   }
 
@@ -58,8 +58,8 @@ public class ParametersResource {
   @PutMapping("/{id}")
   public ResponseEntity<Parameters> updateParameters(
       @PathVariable("id") Long id, @Valid @RequestBody ParametersSaveDTO parametersSaveDTO) {
-    Parameters parameters = parametersSaveDTO.toParameters();
-    Parameters createdParameters = service.updateParameters(id, parameters);
+    var parameters = parametersSaveDTO.toParameters();
+    var createdParameters = service.updateParameters(id, parameters);
     return ResponseEntity.ok(createdParameters);
   }
 
@@ -67,7 +67,7 @@ public class ParametersResource {
   @PreAuthorize("@logHandler.saveLog('Deactivate parameters' + #id)")
   @PatchMapping("/deactivate/{id}")
   public ResponseEntity<Parameters> deactivate(@PathVariable("id") Long id) {
-    Parameters parameters = service.updateStatus(id, false);
+    var parameters = service.updateStatus(id, false);
     return ResponseEntity.ok(parameters);
   }
 
@@ -75,7 +75,7 @@ public class ParametersResource {
   @PreAuthorize("@logHandler.saveLog('Activate parameters' + #id)")
   @PatchMapping("/activate/{id}")
   public ResponseEntity<Parameters> activate(@PathVariable("id") Long id) {
-    Parameters parameters = service.updateStatus(id, true);
+    var parameters = service.updateStatus(id, true);
     return ResponseEntity.ok(parameters);
   }
 }

@@ -24,23 +24,23 @@ public class MatrixResource {
   @PreAuthorize("@logHandler.saveLog('Create new matrix')")
   @PostMapping()
   public ResponseEntity<Matrix> save(@RequestBody @Valid MatrixSaveDTO matrixSaveDTO) {
-    Matrix matrix = matrixSaveDTO.toMatrix();
-    Matrix createdMatrix = service.save(matrix);
+    var matrix = matrixSaveDTO.toMatrix();
+    var createdMatrix = service.save(matrix);
     return ResponseEntity.status(HttpStatus.CREATED).body(createdMatrix);
   }
 
   @Secured({"ROLE_MANAGER", "ROLE_SIMPLE"})
   @GetMapping()
   public ResponseEntity<PageModel<Matrix>> listAll(@RequestParam Map<String, String> params) {
-    PageRequestModel pr = new PageRequestModel(params);
-    PageModel<Matrix> pm = service.listAll(pr);
+    var pr = new PageRequestModel(params);
+    var pm = service.listAll(pr);
     return ResponseEntity.ok(pm);
   }
 
   @Secured({"ROLE_MANAGER", "ROLE_SIMPLE"})
   @GetMapping("/{id}")
   public ResponseEntity<Matrix> getById(@PathVariable("id") Long id) {
-    Matrix matrix = service.getById(id);
+    var matrix = service.getById(id);
     return ResponseEntity.ok(matrix);
   }
 
@@ -48,7 +48,7 @@ public class MatrixResource {
   @PreAuthorize("@logHandler.saveLog('Deactivate matrix' + #id)")
   @PatchMapping("/deactivate/{id}")
   public ResponseEntity<Matrix> deactivate(@PathVariable("id") Long id) {
-    Matrix matrix = service.updateStatus(id, false);
+    var matrix = service.updateStatus(id, false);
     return ResponseEntity.ok(matrix);
   }
 
@@ -56,7 +56,7 @@ public class MatrixResource {
   @PreAuthorize("@logHandler.saveLog('Activate matrix' + #id)")
   @PatchMapping("/activate/{id}")
   public ResponseEntity<Matrix> activate(@PathVariable("id") Long id) {
-    Matrix matrix = service.updateStatus(id, true);
+    var matrix = service.updateStatus(id, true);
     return ResponseEntity.ok(matrix);
   }
 }

@@ -13,7 +13,6 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,15 +23,15 @@ import java.util.Map;
 @RequestMapping(value = "users")
 @RestController
 public class UserResource {
-  private UserService userService;
-  private LogService logService;
-  private JwtManager jwtManager;
-  private AuthenticationManager authManager;
+  private final UserService userService;
+  private final LogService logService;
+  private final JwtManager jwtManager;
+  private final AuthenticationManager authManager;
 
   @PostMapping()
   public ResponseEntity<User> save(@RequestBody @Valid UserSaveDTO userDTO) {
-    User user = userDTO.toUser();
-    User createdUser = userService.save(user);
+    var user = userDTO.toUser();
+    var createdUser = userService.save(user);
     return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
   }
 
@@ -40,43 +39,42 @@ public class UserResource {
   @PutMapping("/{id}")
   public ResponseEntity<User> update(
       @PathVariable(name = "id") Long id, @RequestBody UserUpdateDTO userDTO) {
-    User user = userDTO.toUser();
+    var user = userDTO.toUser();
     user.setId(id);
-    User updatedUser = userService.save(user);
+    var updatedUser = userService.save(user);
     return ResponseEntity.ok(updatedUser);
   }
 
   @PreAuthorize("@accessManager.isOwner(#id)")
   @GetMapping("/{id}")
   public ResponseEntity<User> getById(@PathVariable("id") Long id) {
-    User user = userService.getById(id);
+    var user = userService.getById(id);
     return ResponseEntity.ok(user);
   }
 
   @Secured({"ROLE_ADMIN"})
   @GetMapping("/admin")
   public ResponseEntity<PageModel<User>> listAll(@RequestParam Map<String, String> params) {
-    PageRequestModel pr = new PageRequestModel(params);
-    PageModel<User> pm = userService.listAll(pr);
+    var pr = new PageRequestModel(params);
+    var pm = userService.listAll(pr);
     return ResponseEntity.ok(pm);
   }
 
   @Secured({"ROLE_ADMIN", "ROLE_MANAGER"})
   @GetMapping
   public ResponseEntity<PageModel<User>> listAllNotAdmin(@RequestParam Map<String, String> params) {
-    PageRequestModel pr = new PageRequestModel(params);
-    PageModel<User> pm = userService.listAllNotAdmin(pr);
+    var pr = new PageRequestModel(params);
+    var pm = userService.listAllNotAdmin(pr);
     return ResponseEntity.ok(pm);
   }
 
   @PostMapping("/login")
   public ResponseEntity<UserLoginResponseDTO> login(@Valid @RequestBody UserLoginDTO user) {
-    UsernamePasswordAuthenticationToken token =
-        new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
-    Authentication auth = authManager.authenticate(token);
+    var token = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
+    var auth = authManager.authenticate(token);
     SecurityContextHolder.getContext().setAuthentication(auth);
 
-    UserLoginServiceDTO userLogin =
+    var userLogin =
         userService.login((org.springframework.security.core.userdetails.User) auth.getPrincipal());
 
     return ResponseEntity.ok(jwtManager.createToken(userLogin.getEmail(), userLogin.getRoles()));
@@ -95,8 +93,8 @@ public class UserResource {
   @GetMapping("/logs/{id}")
   public ResponseEntity<PageModel<Log>> listAllLogsByOwner(
       @PathVariable("id") Long id, @RequestParam Map<String, String> params) {
-    PageRequestModel pr = new PageRequestModel(params);
-    PageModel<Log> pm = logService.listAllLogsByOwner(id, pr);
+    var pr = new PageRequestModel(params);
+    var pm = logService.listAllLogsByOwner(id, pr);
     return ResponseEntity.ok(pm);
   }
 }

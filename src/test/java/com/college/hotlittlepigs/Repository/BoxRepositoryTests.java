@@ -6,18 +6,14 @@ import com.college.hotlittlepigs.pagination.PageRequestModel;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
-@FixMethodOrder(MethodSorters.DEFAULT)
+@FixMethodOrder
 @SpringBootTest
 public class BoxRepositoryTests {
 
@@ -25,32 +21,32 @@ public class BoxRepositoryTests {
 
   @Test
   public void saveTest() {
-    Box newBox = new Box(null, 2, "Piso", "4", true, null, null, null, null);
-    Box createdBox = boxRepository.save(newBox);
+    var newBox = new Box(null, 2, "Piso", "4", true, null, null, null, null);
+    var createdBox = boxRepository.save(newBox);
 
     assertThat(createdBox.getId()).isEqualTo(1L);
   }
 
   @Test
   public void findAllTest() {
-    PageRequestModel prm = new PageRequestModel();
-    Page<Box> page = boxRepository.findAll(prm.toSpringPageRequest());
+    var prm = new PageRequestModel();
+    var page = boxRepository.findAll(prm.toSpringPageRequest());
 
     assertThat(page.getTotalElements()).isEqualTo(1);
   }
 
   @Test
   public void getByIdTest() {
-    Optional<Box> result = boxRepository.findById(1L);
-    Box box = result.get();
+    var result = boxRepository.findById(1L);
+    var box = result.get();
 
     assertThat(box.getNumber()).isEqualTo(2);
   }
 
   @Test
   public void findByNumberByStatus() {
-    Optional<Box> result = boxRepository.findBoxByNumberAndStatus(2, true);
-    Box box = result.get();
+    var result = boxRepository.findBoxByNumberAndStatus(2, true);
+    var box = result.get();
 
     assertThat(box.getId()).isEqualTo(1L);
   }

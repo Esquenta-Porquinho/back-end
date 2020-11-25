@@ -16,21 +16,21 @@ import java.util.Map;
 @RequestMapping(value = "sensors")
 @RestController
 public class SensorsResource {
-  private SensorsService service;
+  private final SensorsService service;
 
   @Secured({"ROLE_ADMIN"})
   @PostMapping()
   public ResponseEntity<Sensors> save(@Valid @RequestBody SensorsSaveDTO sensorsSaveDTO) {
-    Sensors sensors = sensorsSaveDTO.toSensors();
-    Sensors createdSensors = service.save(sensors);
+    var sensors = sensorsSaveDTO.toSensors();
+    var createdSensors = service.save(sensors);
     return ResponseEntity.status(HttpStatus.CREATED).body(createdSensors);
   }
 
   @Secured({"ROLE_ADMIN"})
   @GetMapping()
   public ResponseEntity<PageModel<Sensors>> listAll(@RequestParam Map<String, String> params) {
-    PageRequestModel pr = new PageRequestModel(params);
-    PageModel<Sensors> pm = service.listAll(pr);
+    var pr = new PageRequestModel(params);
+    var pm = service.listAll(pr);
     return ResponseEntity.ok(pm);
   }
 
@@ -38,8 +38,8 @@ public class SensorsResource {
   @GetMapping("/box/{id}")
   public ResponseEntity<PageModel<Sensors>> listAllByBox(
       @PathVariable("id") Long id, @RequestParam Map<String, String> params) {
-    PageRequestModel pr = new PageRequestModel(params);
-    PageModel<Sensors> pm = service.listAllByBox(id, pr);
+    var pr = new PageRequestModel(params);
+    var pm = service.listAllByBox(id, pr);
     return ResponseEntity.ok(pm);
   }
 
@@ -47,8 +47,8 @@ public class SensorsResource {
   @GetMapping("/active")
   public ResponseEntity<PageModel<Sensors>> listAllActive(
       @RequestParam Map<String, String> params) {
-    PageRequestModel pr = new PageRequestModel(params);
-    PageModel<Sensors> pm = service.listAllByStatus(true, pr);
+    var pr = new PageRequestModel(params);
+    var pm = service.listAllByStatus(true, pr);
     return ResponseEntity.ok(pm);
   }
 
@@ -56,15 +56,15 @@ public class SensorsResource {
   @GetMapping("/deactive")
   public ResponseEntity<PageModel<Sensors>> listAllDeactive(
       @RequestParam Map<String, String> params) {
-    PageRequestModel pr = new PageRequestModel(params);
-    PageModel<Sensors> pm = service.listAllByStatus(true, pr);
+    var pr = new PageRequestModel(params);
+    var pm = service.listAllByStatus(true, pr);
     return ResponseEntity.ok(pm);
   }
 
   @Secured({"ROLE_ADMIN"})
   @GetMapping("/{id}")
   public ResponseEntity<Sensors> getById(@PathVariable("id") Long id) {
-    Sensors sensors = service.getById(id);
+    var sensors = service.getById(id);
     return ResponseEntity.ok(sensors);
   }
 
@@ -72,22 +72,22 @@ public class SensorsResource {
   @PutMapping("/{id}")
   public ResponseEntity<Sensors> updateSensors(
       @PathVariable("id") Long id, @Valid @RequestBody SensorsSaveDTO sensorsSaveDTO) {
-    Sensors sensors = sensorsSaveDTO.toSensors();
-    Sensors createdSensors = service.updateSensors(id, sensors);
+    var sensors = sensorsSaveDTO.toSensors();
+    var createdSensors = service.updateSensors(id, sensors);
     return ResponseEntity.ok(createdSensors);
   }
 
   @Secured({"ROLE_ADMIN"})
   @PatchMapping("/deactivate/{id}")
   public ResponseEntity<Sensors> deactivate(@PathVariable("id") Long id) {
-    Sensors sensors = service.updateStatus(id, false);
+    var sensors = service.updateStatus(id, false);
     return ResponseEntity.ok(sensors);
   }
 
   @Secured({"ROLE_ADMIN"})
   @PatchMapping("/activate/{id}")
   public ResponseEntity<Sensors> activate(@PathVariable("id") Long id) {
-    Sensors sensors = service.updateStatus(id, true);
+    var sensors = service.updateStatus(id, true);
     return ResponseEntity.ok(sensors);
   }
 }

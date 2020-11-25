@@ -17,7 +17,7 @@ import java.util.Map;
 @RestController
 public class MeasurementResource {
 
-  private MeasurementService service;
+  private final MeasurementService service;
 
   @Secured({"ROLE_ADMIN"})
   @PostMapping()
@@ -30,8 +30,8 @@ public class MeasurementResource {
   @GetMapping("{id}")
   public ResponseEntity<PageModel<Measurement>> listAllBySensorId(
       @PathVariable("id") Long id, @RequestParam Map<String, String> params) {
-    PageRequestModel pr = new PageRequestModel(params);
-    PageModel<Measurement> pm = service.listAllBySensorId(id, pr);
+    var pr = new PageRequestModel(params);
+    var pm = service.listAllBySensorId(id, pr);
     return ResponseEntity.ok(pm);
   }
 }

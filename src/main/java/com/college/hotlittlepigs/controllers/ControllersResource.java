@@ -17,28 +17,28 @@ import java.util.Map;
 @RestController
 public class ControllersResource {
 
-  private ControllersService service;
+  private final ControllersService service;
 
   @Secured({"ROLE_ADMIN"})
   @PostMapping()
   public ResponseEntity<Controller> save(@Valid @RequestBody ControllersSaveDTO controllerDTO) {
-    Controller controller = controllerDTO.toController();
-    Controller createdController = service.save(controller);
+    var controller = controllerDTO.toController();
+    var createdController = service.save(controller);
     return ResponseEntity.status(HttpStatus.CREATED).body(createdController);
   }
 
   @Secured({"ROLE_ADMIN"})
   @GetMapping("/{id}")
   public ResponseEntity<Controller> getById(@PathVariable("id") Long id) {
-    Controller controller = service.getById(id);
+    var controller = service.getById(id);
     return ResponseEntity.ok(controller);
   }
 
   @Secured({"ROLE_ADMIN"})
   @GetMapping()
   public ResponseEntity<PageModel<Controller>> listAll(@RequestParam Map<String, String> params) {
-    PageRequestModel pr = new PageRequestModel(params);
-    PageModel<Controller> pm = service.listAll(pr);
+    var pr = new PageRequestModel(params);
+    var pm = service.listAll(pr);
     return ResponseEntity.ok(pm);
   }
 
@@ -46,10 +46,10 @@ public class ControllersResource {
   @GetMapping("/box/{id}")
   public ResponseEntity<PageModel<Controller>> listAllByBoxId(
       @PathVariable("id") Long id, @RequestParam Map<String, String> params) {
-    PageRequestModel pr = new PageRequestModel(params);
+    var pr = new PageRequestModel(params);
     // TODO Jean, acho que aqui deveria ser
     //  PageModel<Controllers> pam = service.listAllByBoxId(id, pr);
-    PageModel<Controller> pm = service.listAll(pr);
+    var pm = service.listAll(pr);
     return ResponseEntity.ok(pm);
   }
 
@@ -57,8 +57,8 @@ public class ControllersResource {
   @GetMapping("/status/active")
   public ResponseEntity<PageModel<Controller>> listAllActiveStatus(
       @RequestParam Map<String, String> params) {
-    PageRequestModel pr = new PageRequestModel(params);
-    PageModel<Controller> pm = service.listAllByStatus(true, pr);
+    var pr = new PageRequestModel(params);
+    var pm = service.listAllByStatus(true, pr);
     return ResponseEntity.ok(pm);
   }
 
@@ -66,36 +66,36 @@ public class ControllersResource {
   @GetMapping("/status/inactive")
   public ResponseEntity<PageModel<Controller>> listAllInactiveStatus(
       @RequestParam Map<String, String> params) {
-    PageRequestModel pr = new PageRequestModel(params);
-    PageModel<Controller> pm = service.listAllByStatus(false, pr);
+    var pr = new PageRequestModel(params);
+    var pm = service.listAllByStatus(false, pr);
     return ResponseEntity.ok(pm);
   }
 
   @Secured({"ROLE_ADMIN"})
   @PatchMapping("/active/status/{id}")
   public ResponseEntity<Controller> activateStatus(@PathVariable("id") Long id) {
-    Controller controller = service.updateStatus(id, true);
+    var controller = service.updateStatus(id, true);
     return ResponseEntity.ok(controller);
   }
 
   @Secured({"ROLE_ADMIN"})
   @PatchMapping("/deactivate/status/{id}")
   public ResponseEntity<Controller> deactivateStatus(@PathVariable("id") Long id) {
-    Controller controller = service.updateStatus(id, false);
+    var controller = service.updateStatus(id, false);
     return ResponseEntity.ok(controller);
   }
 
   @Secured({"ROLE_ADMIN"})
   @PatchMapping("/active/work/{id}")
   public ResponseEntity<Controller> activateWork(@PathVariable("id") Long id) {
-    Controller controller = service.updateWork(id, true);
+    var controller = service.updateWork(id, true);
     return ResponseEntity.ok(controller);
   }
 
   @Secured({"ROLE_ADMIN"})
   @PatchMapping("/deactivate/work/{id}")
   public ResponseEntity<Controller> deactivateWork(@PathVariable("id") Long id) {
-    Controller controller = service.updateWork(id, false);
+    var controller = service.updateWork(id, false);
     return ResponseEntity.ok(controller);
   }
 
@@ -103,8 +103,8 @@ public class ControllersResource {
   @PutMapping("/{id}")
   public ResponseEntity<Controller> update(
       @PathVariable("id") Long id, @Valid @RequestBody ControllersSaveDTO controllersSaveDTO) {
-    Controller controller = controllersSaveDTO.toController();
-    Controller updateController = service.update(id, controller);
+    var controller = controllersSaveDTO.toController();
+    var updateController = service.update(id, controller);
     return ResponseEntity.ok(updateController);
   }
 }

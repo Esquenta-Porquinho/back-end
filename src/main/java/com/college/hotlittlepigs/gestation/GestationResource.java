@@ -17,29 +17,29 @@ import java.util.Map;
 @RequestMapping(value = "gestation")
 @RestController
 public class GestationResource {
-  private GestationService service;
+  private final GestationService service;
 
   @Secured({"ROLE_MANAGER", "ROLE_SIMPLE"})
   @PreAuthorize("@logHandler.saveLog('Create new Gestation')")
   @PostMapping()
   public ResponseEntity<Gestation> save(@Valid @RequestBody GestationSaveDTO gestatioDTO) {
-    Gestation gestation = gestatioDTO.toGestation();
-    Gestation newGestation = service.save(gestation);
+    var gestation = gestatioDTO.toGestation();
+    var newGestation = service.save(gestation);
     return ResponseEntity.status(HttpStatus.CREATED).body(newGestation);
   }
 
   @Secured({"ROLE_MANAGER", "ROLE_SIMPLE"})
   @GetMapping()
   public ResponseEntity<PageModel<Gestation>> listAll(@RequestParam Map<String, String> params) {
-    PageRequestModel pr = new PageRequestModel(params);
-    PageModel<Gestation> pm = service.listAll(pr);
+    var pr = new PageRequestModel(params);
+    var pm = service.listAll(pr);
     return ResponseEntity.ok(pm);
   }
 
   @Secured({"ROLE_MANAGER", "ROLE_SIMPLE"})
   @GetMapping("/{id}")
   public ResponseEntity<Gestation> getById(@PathVariable("id") Long id) {
-    Gestation gestation = service.getById(id);
+    var gestation = service.getById(id);
     return ResponseEntity.ok(gestation);
   }
 
@@ -47,8 +47,8 @@ public class GestationResource {
   @GetMapping("/box/{id}")
   public ResponseEntity<PageModel<Gestation>> listAllByBox(
       @PathVariable("id") Long id, @RequestParam Map<String, String> params) {
-    PageRequestModel pr = new PageRequestModel(params);
-    PageModel<Gestation> pm = service.listAllByBox(id, pr);
+    var pr = new PageRequestModel(params);
+    var pm = service.listAllByBox(id, pr);
     return ResponseEntity.ok(pm);
   }
 
@@ -56,8 +56,8 @@ public class GestationResource {
   @GetMapping("/matrix/{id}")
   public ResponseEntity<PageModel<Gestation>> listAllByMatrix(
       @PathVariable("id") Long id, @RequestParam Map<String, String> params) {
-    PageRequestModel pr = new PageRequestModel(params);
-    PageModel<Gestation> pm = service.listAllByMatrix(id, pr);
+    var pr = new PageRequestModel(params);
+    var pm = service.listAllByMatrix(id, pr);
     return ResponseEntity.ok(pm);
   }
 
@@ -66,8 +66,8 @@ public class GestationResource {
   @PutMapping("/{id}")
   public ResponseEntity<Gestation> updateGestation(
       @PathVariable("id") Long id, @Valid @RequestBody GestationSaveDTO gestationDTO) {
-    Gestation gestation = gestationDTO.toGestation();
-    Gestation newGestation = service.updateGestation(id, gestation);
+    var gestation = gestationDTO.toGestation();
+    var newGestation = service.updateGestation(id, gestation);
     return ResponseEntity.ok(newGestation);
   }
 
@@ -75,7 +75,7 @@ public class GestationResource {
   @PreAuthorize("@logHandler.saveLog('Deactivate gestation' + #id)")
   @PatchMapping("/deactivate/{id}")
   public ResponseEntity<Gestation> deactivate(@PathVariable("id") Long id) {
-    Gestation gestation = service.updateStatus(id, false);
+    var gestation = service.updateStatus(id, false);
     return ResponseEntity.ok(gestation);
   }
 
@@ -83,7 +83,7 @@ public class GestationResource {
   @PreAuthorize("@logHandler.saveLog('Activate gestation' + #id)")
   @PatchMapping("/activate/{id}")
   public ResponseEntity<Gestation> activate(@PathVariable("id") Long id) {
-    Gestation gestation = service.updateStatus(id, true);
+    var gestation = service.updateStatus(id, true);
     return ResponseEntity.ok(gestation);
   }
 }

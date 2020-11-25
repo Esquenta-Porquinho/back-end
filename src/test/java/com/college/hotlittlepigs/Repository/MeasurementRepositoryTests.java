@@ -3,23 +3,18 @@ package com.college.hotlittlepigs.Repository;
 import com.college.hotlittlepigs.meansurement.Measurement;
 import com.college.hotlittlepigs.meansurement.MeasurementRepository;
 import com.college.hotlittlepigs.pagination.PageRequestModel;
-import com.college.hotlittlepigs.sensors.Sensors;
 import com.college.hotlittlepigs.sensors.SensorsRepository;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
-@FixMethodOrder(MethodSorters.DEFAULT)
+@FixMethodOrder
 @SpringBootTest
 public class MeasurementRepositoryTests {
 
@@ -28,18 +23,18 @@ public class MeasurementRepositoryTests {
 
   @Test
   public void saveTest() {
-    Optional<Sensors> result = sensorsRepository.findById(1L);
-    Sensors sensor = result.get();
+    var result = sensorsRepository.findById(1L);
+    var sensor = result.get();
 
-    Measurement measure = new Measurement(null, 34.00, sensor);
-    Measurement createdMeasurement = measurementRepository.save(measure);
+    var measure = new Measurement(null, 34.00, sensor);
+    var createdMeasurement = measurementRepository.save(measure);
     assertThat(createdMeasurement.getId()).isEqualTo(1L);
   }
 
   @Test
   public void findAllBySensorsIdTest() {
-    PageRequestModel prm = new PageRequestModel();
-    Page<Measurement> page = measurementRepository.findAllBySensorId(1L, prm.toSpringPageRequest());
+    var prm = new PageRequestModel();
+    var page = measurementRepository.findAllBySensorId(1L, prm.toSpringPageRequest());
     assertThat(page.getTotalElements()).isEqualTo(1);
   }
 }
