@@ -25,15 +25,13 @@ public class BoxService {
   }
 
   public Box getById(Long id) {
-    var result = repository.findById(id);
-    if (result.isEmpty()) throw new BoxNotFoundException();
-    return result.get();
+    var box = repository.findById(id);
+    return box.orElseThrow(BoxNotFoundException::new);
   }
 
   public Box getByNumber(int number) {
-    var result = repository.findBoxByNumberAndStatus(number, true);
-    if (result.isEmpty()) throw new BoxNotFoundException();
-    return result.get();
+    var box = repository.findBoxByNumberAndStatus(number, true);
+    return box.orElseThrow(BoxNotFoundException::new);
   }
 
   public PageModel<Box> listAll(PageRequestModel pr) {

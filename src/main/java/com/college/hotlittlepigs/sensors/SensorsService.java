@@ -1,8 +1,8 @@
 package com.college.hotlittlepigs.sensors;
 
-import com.college.hotlittlepigs.exception.common.NotFoundException;
 import com.college.hotlittlepigs.pagination.PageModel;
 import com.college.hotlittlepigs.pagination.PageRequestModel;
+import com.college.hotlittlepigs.sensors.exception.SensorNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -26,10 +26,8 @@ public class SensorsService {
   }
 
   public Sensors getById(Long id) {
-    var result = repository.findById(id);
-    if (result.isEmpty()) throw new NotFoundException("Sensor not found !!");
-
-    return result.get();
+    var sensor = repository.findById(id);
+    return sensor.orElseThrow(SensorNotFoundException::new);
   }
 
   public PageModel<Sensors> listAllByBox(Long id, PageRequestModel pr) {
@@ -49,13 +47,13 @@ public class SensorsService {
   }
 
   public Sensors updateSensors(Long id, Sensors sensor) {
-    var updatableSensors = this.getById(id);
+    var updatableSensors = getById(id);
     sensor.setId(updatableSensors.getId());
     return save(sensor);
   }
 
   public Sensors updateStatus(Long id, Boolean status) {
-    var sensor = this.getById(id);
+    var sensor = getById(id);
     sensor.setStatus(status);
     return save(sensor);
   }
