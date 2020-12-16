@@ -1,6 +1,6 @@
 package com.college.hotlittlepigs.Repository;
 
-import com.college.hotlittlepigs.controllers.ControllersRepository;
+import com.college.hotlittlepigs.controller.ControllerRepository;
 import com.college.hotlittlepigs.log_controllers.LogController;
 import com.college.hotlittlepigs.log_controllers.LogControllersRepository;
 import com.college.hotlittlepigs.pagination.PageRequestModel;
@@ -21,11 +21,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class LogControllerRepositoryTests {
 
   @Autowired private LogControllersRepository logControllersRepository;
-  @Autowired private ControllersRepository controllersRepository;
+  @Autowired private ControllerRepository controllerRepository;
 
   @Test
   public void saveTest() {
-    var request = controllersRepository.findById(1L);
+    var request = controllerRepository.findById(1L);
     var controller = request.get();
     var log = new LogController(null, new Date(), true, controller);
     var createdLog = logControllersRepository.save(log);

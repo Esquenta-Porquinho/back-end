@@ -1,6 +1,6 @@
 package com.college.hotlittlepigs.log_controllers;
 
-import com.college.hotlittlepigs.controllers.Controller;
+import com.college.hotlittlepigs.controller.Controller;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

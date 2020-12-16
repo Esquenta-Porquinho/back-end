@@ -1,8 +1,8 @@
 package com.college.hotlittlepigs.Repository;
 
 import com.college.hotlittlepigs.box.BoxRepository;
-import com.college.hotlittlepigs.controllers.Controller;
-import com.college.hotlittlepigs.controllers.ControllersRepository;
+import com.college.hotlittlepigs.controller.Controller;
+import com.college.hotlittlepigs.controller.ControllerRepository;
 import com.college.hotlittlepigs.pagination.PageRequestModel;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ControllerRepositoryTests {
 
   @Autowired private BoxRepository boxRepository;
-  @Autowired private ControllersRepository controllersRepository;
+  @Autowired private ControllerRepository controllerRepository;
 
   @Test
   public void saveTest() {
@@ -27,20 +27,20 @@ public class ControllerRepositoryTests {
     var box = requestBox.get();
 
     var controller = new Controller(null, "Controlador Boiler", false, box, null);
-    var createdController = controllersRepository.save(controller);
+    var createdController = controllerRepository.save(controller);
     assertThat(createdController.getId()).isEqualTo(1L);
   }
 
   @Test
   public void findAllTest() {
     var prm = new PageRequestModel();
-    var page = controllersRepository.findAll(prm.toSpringPageRequest());
+    var page = controllerRepository.findAll(prm.toSpringPageRequest());
     assertThat(page.getTotalElements()).isEqualTo(1);
   }
 
   @Test
   public void getByIdTest() {
-    var result = controllersRepository.findById(1L);
+    var result = controllerRepository.findById(1L);
     var controller = result.get();
     assertThat(controller.getName()).isEqualTo("Controlador Boiler");
   }
@@ -48,21 +48,21 @@ public class ControllerRepositoryTests {
   @Test
   public void findAllByBoxIdTest() {
     var prm = new PageRequestModel();
-    var page = controllersRepository.findAllByBoxId(1L, prm.toSpringPageRequest());
+    var page = controllerRepository.findAllByBoxId(1L, prm.toSpringPageRequest());
     assertThat(page.getTotalElements()).isEqualTo(1);
   }
 
   @Test
   public void findAllByStatusTest() {
     var prm = new PageRequestModel();
-    var page = controllersRepository.findAllByStatus(true, prm.toSpringPageRequest());
+    var page = controllerRepository.findAllByStatus(true, prm.toSpringPageRequest());
     assertThat(page.getTotalElements()).isEqualTo(0);
   }
 
   @Test
   public void findAllByWorkTest() {
     var prm = new PageRequestModel();
-    var page = controllersRepository.findAllByStatus(false, prm.toSpringPageRequest());
+    var page = controllerRepository.findAllByStatus(false, prm.toSpringPageRequest());
     assertThat(page.getTotalElements()).isEqualTo(1);
   }
 }

@@ -1,6 +1,6 @@
 package com.college.hotlittlepigs.box;
 
-import com.college.hotlittlepigs.controllers.Controller;
+import com.college.hotlittlepigs.controller.Controller;
 import com.college.hotlittlepigs.gestation.Gestation;
 import com.college.hotlittlepigs.parameters.Parameters;
 import com.college.hotlittlepigs.sensors.Sensors;

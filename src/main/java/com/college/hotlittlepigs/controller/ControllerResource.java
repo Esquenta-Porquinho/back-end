@@ -1,6 +1,6 @@
-package com.college.hotlittlepigs.controllers;
+package com.college.hotlittlepigs.controller;
 
-import com.college.hotlittlepigs.controllers.dto.ControllersSaveDTO;
+import com.college.hotlittlepigs.controller.dto.ControllersSaveDTO;
 import com.college.hotlittlepigs.pagination.PageModel;
 import com.college.hotlittlepigs.pagination.PageRequestModel;
 import lombok.AllArgsConstructor;
@@ -15,9 +15,9 @@ import java.util.Map;
 @AllArgsConstructor
 @RequestMapping(value = "controllers")
 @RestController
-public class ControllersResource {
+public class ControllerResource {
 
-  private final ControllersService service;
+  private final ControllerService service;
 
   @Secured({"ROLE_ADMIN"})
   @PostMapping()

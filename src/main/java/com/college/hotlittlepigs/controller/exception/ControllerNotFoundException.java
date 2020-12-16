@@ -1,4 +1,4 @@
-package com.college.hotlittlepigs.controllers.exception;
+package com.college.hotlittlepigs.controller.exception;
 
 import com.college.hotlittlepigs.exception.common.NotFoundException;
 
