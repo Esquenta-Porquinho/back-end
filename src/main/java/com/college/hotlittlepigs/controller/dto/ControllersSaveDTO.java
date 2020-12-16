@@ -1,7 +1,7 @@
-package com.college.hotlittlepigs.controllers.dto;
+package com.college.hotlittlepigs.controller.dto;
 
 import com.college.hotlittlepigs.box.Box;
-import com.college.hotlittlepigs.controllers.Controller;
+import com.college.hotlittlepigs.controller.Controller;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;

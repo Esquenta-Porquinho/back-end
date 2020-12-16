@@ -1,6 +1,6 @@
 package com.college.hotlittlepigs.log_controllers;
 
-import com.college.hotlittlepigs.controllers.Controller;
+import com.college.hotlittlepigs.controller.Controller;
 import com.college.hotlittlepigs.pagination.PageModel;
 import com.college.hotlittlepigs.pagination.PageRequestModel;
 import lombok.AllArgsConstructor;

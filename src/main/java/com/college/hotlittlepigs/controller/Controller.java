@@ -1,4 +1,4 @@
-package com.college.hotlittlepigs.controllers;
+package com.college.hotlittlepigs.controller;
 
 import com.college.hotlittlepigs.box.Box;
 import com.college.hotlittlepigs.log_controllers.LogController;
@@ -17,7 +17,7 @@ import java.util.List;
 @Data
 @Entity
 public class Controller implements Serializable {
-  // TODO Acho que o nome poderia ser no singular, que tal?
+
   private static final long serialVersionUID = 1L;
 
   @Id

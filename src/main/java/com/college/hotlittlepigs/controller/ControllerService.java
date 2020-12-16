@@ -1,6 +1,6 @@
-package com.college.hotlittlepigs.controllers;
+package com.college.hotlittlepigs.controller;
 
-import com.college.hotlittlepigs.controllers.exception.ControllerNotFoundException;
+import com.college.hotlittlepigs.controller.exception.ControllerNotFoundException;
 import com.college.hotlittlepigs.log_controllers.LogControllersService;
 import com.college.hotlittlepigs.pagination.PageModel;
 import com.college.hotlittlepigs.pagination.PageRequestModel;
@@ -11,9 +11,9 @@ import org.springframework.stereotype.Service;
 
 @AllArgsConstructor
 @Service
-public class ControllersService {
+public class ControllerService {
 
-  private final ControllersRepository repository;
+  private final ControllerRepository repository;
   private final LogControllersService log;
   private final UserService userService;
 

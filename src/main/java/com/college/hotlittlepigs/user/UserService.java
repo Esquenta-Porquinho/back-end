@@ -1,6 +1,6 @@
 package com.college.hotlittlepigs.user;
 
-import com.college.hotlittlepigs.controllers.Controller;
+import com.college.hotlittlepigs.controller.Controller;
 import com.college.hotlittlepigs.pagination.PageModel;
 import com.college.hotlittlepigs.pagination.PageRequestModel;
 import com.college.hotlittlepigs.security.AccessManager;
@@ -35,17 +35,10 @@ public class UserService implements UserDetailsService {
   public int updateRole(UserUpdateRoleDTO userDto, Long id) {
 
     if (!accessManager.isAdmin()) {
-      var checkUser = getById(id);
-      if (checkUser.getRole() == Role.ADMIN || userDto.getRole() == Role.ADMIN)
-        // TODO: qual o sentido dessas verificações?
-        //  checkUser.getRole() == Role.ADMIN  // Essa verificação já é feita na controller aqui:
-        //  @Secured({"ROLE_ADMIN", "ROLE_MANAGER"})
-
-        // TODO:  userDto.getRole() == Role.ADMIN //  Se ele já for admin, não faz sentido dar acces
-        //  denied, deixa sobreescrever pra admin denovo
+      var updatableUser = getById(id);
+      if (updatableUser.getRole() == Role.ADMIN || userDto.getRole() == Role.ADMIN)
         throw new AccessDeniedException("Access Denied");
     }
-
     return repository.updateRole(id, userDto.getRole());
   }
 
