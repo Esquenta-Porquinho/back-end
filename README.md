@@ -18,7 +18,12 @@
 
 ## Running
 ```bash
-make up.db.dev
+# Starts a Mysql 5.7 Database binding port 3306
+make up.db.dev 
+make down.db.dev
+
+# Cleans docker stuff after containers are stopped
+make clean   
 ```
 
   
