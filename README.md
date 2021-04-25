@@ -18,19 +18,9 @@
 
 ## Running
 ```bash
-docker-compose up -d
+make up.db.dev
 ```
 
-## Code Formatter
-1. Using Intellij, press `CTRL + ALT + S`  
-2. Plugins > `Google Java Format`
-3. `CTRL + ALT + s` > `google-java-format` settings
-4. Check the box "Enable google-java-format"
-5. Always press `CTRL + ALT + L` for format
-
-- To format all files
-  - Select `src` folder and `CTRL + ALT + L`
-  
   
 ## 🤝 Contributing
 
