@@ -18,19 +18,14 @@
 
 ## Running
 ```bash
-docker-compose up -d
+# Starts a Mysql 5.7 Database binding port 3306
+make up.db.dev 
+make down.db.dev
+
+# Cleans docker stuff after containers are stopped
+make clean   
 ```
 
-## Code Formatter
-1. Using Intellij, press `CTRL + ALT + S`  
-2. Plugins > `Google Java Format`
-3. `CTRL + ALT + s` > `google-java-format` settings
-4. Check the box "Enable google-java-format"
-5. Always press `CTRL + ALT + L` for format
-
-- To format all files
-  - Select `src` folder and `CTRL + ALT + L`
-  
   
 ## 🤝 Contributing
 
