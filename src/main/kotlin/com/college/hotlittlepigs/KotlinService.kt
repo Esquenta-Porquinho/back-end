@@ -4,7 +4,5 @@ import org.springframework.stereotype.Service
 
 @Service
 class KotlinService {
-    fun test(): Map<String, String> {
-        return mapOf(Pair("a", "b"))
-    }
+    fun test(): Map<String, String> = mapOf(Pair("a", "b"))
 }

@@ -12,7 +12,5 @@ class KotlinResource {
     lateinit var kotlinService: KotlinService
 
     @GetMapping
-    fun test(): Map<String, String> {
-        return kotlinService.test()
-    }
+    fun test(): Map<String, String> = kotlinService.test()
 }
