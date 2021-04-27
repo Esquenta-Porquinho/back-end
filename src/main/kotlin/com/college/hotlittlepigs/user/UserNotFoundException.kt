@@ -1,9 +1,5 @@
-package com.college.hotlittlepigs.user.exception;
+package com.college.hotlittlepigs.user
 
-import com.college.hotlittlepigs.exception.common.NotFoundException;
+import com.college.hotlittlepigs.exception.common.NotFoundException
 
-public class UserNotFoundException extends NotFoundException {
-  public UserNotFoundException() {
-    super("User not found");
-  }
-}
+class UserNotFoundException : NotFoundException("User not found")
