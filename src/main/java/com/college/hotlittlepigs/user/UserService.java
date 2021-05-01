@@ -7,6 +7,7 @@ import com.college.hotlittlepigs.security.AccessManager;
 import com.college.hotlittlepigs.user.dto.UserLoginServiceDTO;
 import com.college.hotlittlepigs.user.dto.UserUpdateRoleDTO;
 import com.college.hotlittlepigs.user.enums.Role;
+import com.college.hotlittlepigs.user.exception.UserNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
