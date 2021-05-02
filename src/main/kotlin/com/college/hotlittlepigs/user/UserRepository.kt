@@ -18,5 +18,7 @@ interface UserRepository : JpaRepository<User, Long> {
     fun updateRole(id: Long, role: Role): Int
     fun findByEmail(email: String): Optional<User>
     fun findAllByRoleIsNot(role: Role, pageable: Pageable): Page<User>
+
+    // TODO this is not used?
     fun findAllByRole(role: Role): List<User>
 }
