@@ -1,4 +1,4 @@
-package com.college.hotlittlepigs.user
+package com.college.hotlittlepigs.user.exception
 
 import com.college.hotlittlepigs.exception.common.NotFoundException
 

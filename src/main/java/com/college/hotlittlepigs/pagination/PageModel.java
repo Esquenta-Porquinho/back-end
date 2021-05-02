@@ -1,6 +1,5 @@
 package com.college.hotlittlepigs.pagination;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,9 +7,15 @@ import java.io.Serializable;
 import java.util.List;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Data
 public class PageModel<T> implements Serializable {
+  // TODO Manual constructor since Kotlin does not recognize @AllArgsConstructor
+  public PageModel(int totalElements, int pageSize, int totalPages, List<T> elements) {
+    this.totalElements = totalElements;
+    this.pageSize = pageSize;
+    this.totalPages = totalPages;
+    this.elements = elements;
+  }
 
   private static final long serialVersionUID = 1L;
 
