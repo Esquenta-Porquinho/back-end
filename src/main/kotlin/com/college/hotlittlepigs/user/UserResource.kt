@@ -48,7 +48,7 @@ class UserResource {
         val user = userDTO.toUser()
         user.id = id
         // TODO we should search by id, not set the id
-        val updatedUser = userService.save(user)
+        val updatedUser = userService.update(user)
         return ok(updatedUser)
     }
 
