@@ -8,6 +8,7 @@ import javax.persistence.*
 
 @Entity
 class User() {
+    // TODO Add a ObjectMapper library so we dont need to do that and use generated Mappers
     constructor(name: String, email: String, password: String) : this() {
         this.name = name
         this.email = email
