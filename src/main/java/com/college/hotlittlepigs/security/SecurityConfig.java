@@ -45,7 +45,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   public void configure(WebSecurity web) {
     web.ignoring()
-        .antMatchers(HttpMethod.GET, "/test") // TODO Remove!
         .antMatchers(HttpMethod.POST, "/users")
         .antMatchers(HttpMethod.POST, "/users/login");
   }
