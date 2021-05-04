@@ -1,6 +1,6 @@
 package com.college.hotlittlepigs.gestation.expcetion;
 
-import com.college.hotlittlepigs.exception.common.NotFoundException;
+import com.college.hotlittlepigs.exception.response.NotFoundException;
 
 public class GestationNotFound extends NotFoundException {
   public GestationNotFound() {
