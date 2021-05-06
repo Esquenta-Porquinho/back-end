@@ -44,7 +44,7 @@ class UserResource {
 
     @PreAuthorize("@accessManager.isOwner(#id)")
     @PutMapping("/{id}")
-    fun update(@PathVariable id: Long, @RequestBody userDTO: UserUpdateDTO): ResponseEntity<User> {
+    fun update(@PathVariable id: Long, @RequestBody @Valid userDTO: UserUpdateDTO): ResponseEntity<User> {
         val user = userDTO.toUser()
         user.id = id
         // TODO we should search by id, not set the id
