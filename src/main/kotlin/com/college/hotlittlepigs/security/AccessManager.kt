@@ -24,5 +24,4 @@ class AccessManager {
         return userService.getByEmail(email)
     }
 
-
 }
