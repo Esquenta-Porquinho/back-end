@@ -3,7 +3,6 @@ package com.college.hotlittlepigs.security
 import com.college.hotlittlepigs.exception.ErrorResponse
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import io.jsonwebtoken.JwtException
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
@@ -15,8 +14,10 @@ import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
+// TODO Adds map to DataIntegrityViolationException
+//  This occurs when trying to create an account with an email that already exists
 class AuthorizationFilter : OncePerRequestFilter() {
-    val jwtManager = JwtManager()
+    private val jwtManager = JwtManager()
 
     override fun doFilterInternal(req: HttpServletRequest, res: HttpServletResponse, filter: FilterChain) {
         val jwt = req.getHeader(HttpHeaders.AUTHORIZATION).orEmpty()
@@ -27,9 +28,9 @@ class AuthorizationFilter : OncePerRequestFilter() {
         filter.doFilter(req, res)
     }
 
-    private fun isJwtProviderInvalid(jwt: String): Boolean = jwt.startsWith(SecurityConstant.JWT_PROVIDER).not()
+    private fun isJwtProviderInvalid(jwt: String): Boolean = jwt.startsWith(SecurityConstants.JWT_PROVIDER).not()
 
-    private fun invalidJwtProvider(res: HttpServletResponse) = writeError(res, SecurityConstant.JWT_INVALID_MSG)
+    private fun invalidJwtProvider(res: HttpServletResponse) = writeError(res, SecurityConstants.JWT_INVALID_MSG)
 
     private fun setAuthenticationContext(jwt: String, res: HttpServletResponse) {
         try {
@@ -51,10 +52,10 @@ class AuthorizationFilter : OncePerRequestFilter() {
     }
 
     private fun buildAuthentication(jwt: String): UsernamePasswordAuthenticationToken {
-        val jwtWithoutProvider = jwt.removePrefix(SecurityConstant.JWT_PROVIDER)
+        val jwtWithoutProvider = jwt.removePrefix(SecurityConstants.JWT_PROVIDER)
         val claims = jwtManager.parseToken(jwtWithoutProvider)
         val email = claims.subject
-        val roles = claims[SecurityConstant.JWT_ROLE_KEY] as List<*>
+        val roles = claims[SecurityConstants.JWT_ROLE_KEY] as List<*>
         val grantedAuthorities = roles.map { SimpleGrantedAuthority(it.toString()) }
         return UsernamePasswordAuthenticationToken(email, null, grantedAuthorities)
     }
