@@ -14,6 +14,8 @@ import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
+// TODO Adds map to DataIntegrityViolationException
+//  This occurs when trying to create an account with an email that already exists
 class AuthorizationFilter : OncePerRequestFilter() {
     private val jwtManager = JwtManager()
 
