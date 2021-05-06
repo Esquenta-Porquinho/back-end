@@ -1,7 +1,7 @@
 package com.college.hotlittlepigs.security
 
 import com.college.hotlittlepigs.user.UserService
-import lombok.AllArgsConstructor
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
@@ -18,10 +18,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
-@AllArgsConstructor
 class SecurityConfig : WebSecurityConfigurerAdapter() {
-    private val userService: UserService? = null
-    private val passwordEncoder: CustomPasswordEncoder? = null
+    @Autowired
+    private lateinit var userService: UserService
+
+    @Autowired
+    private lateinit var passwordEncoder: CustomPasswordEncoder
 
     @Throws(Exception::class)
     override fun configure(auth: AuthenticationManagerBuilder) {
