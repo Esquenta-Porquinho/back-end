@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
+// TODO add the exception of this component on controller advice
 @Component("accessManager")
 public class AccessManager {
 
