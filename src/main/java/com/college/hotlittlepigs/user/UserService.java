@@ -4,8 +4,9 @@ import com.college.hotlittlepigs.controller.Controller;
 import com.college.hotlittlepigs.pagination.PageModel;
 import com.college.hotlittlepigs.pagination.PageRequestModel;
 import com.college.hotlittlepigs.security.AccessManager;
-import com.college.hotlittlepigs.user.dto.UserLoginServiceDTO;
+import com.college.hotlittlepigs.security.JwtManager;
 import com.college.hotlittlepigs.user.dto.UserUpdateRoleDTO;
+import com.college.hotlittlepigs.user.dto.UserLoginResponseDTO;
 import com.college.hotlittlepigs.user.enums.Role;
 import com.college.hotlittlepigs.user.exception.UserNotFoundException;
 import com.college.hotlittlepigs.user.util.HashUtil;
@@ -31,6 +32,7 @@ public class UserService implements UserDetailsService {
 
   private final UserRepository repository;
   private final AccessManager accessManager;
+  private final JwtManager jwtManager;
 
   public int updateRole(UserUpdateRoleDTO userDto, Long id) {
 
@@ -90,13 +92,15 @@ public class UserService implements UserDetailsService {
         user.getEmail(), user.getPassword(), authorities);
   }
 
-  public UserLoginServiceDTO login(org.springframework.security.core.userdetails.User userSpring) {
+  public UserLoginResponseDTO login(org.springframework.security.core.userdetails.User userSpring) {
     var email = userSpring.getUsername();
     var roles =
         userSpring.getAuthorities().stream()
             .map(GrantedAuthority::getAuthority)
             .collect(Collectors.toList());
-    return new UserLoginServiceDTO(email, roles);
+    var user = getByEmail(email);
+    var userResponse = jwtManager.createToken(user, roles);
+    return userResponse;
   }
 
   public void sendWarnings(Controller controller) {

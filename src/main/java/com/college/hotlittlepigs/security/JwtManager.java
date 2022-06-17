@@ -1,6 +1,7 @@
 package com.college.hotlittlepigs.security;
 
 import com.college.hotlittlepigs.user.dto.UserLoginResponseDTO;
+import com.college.hotlittlepigs.user.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -13,15 +14,16 @@ import java.util.List;
 @Component
 public class JwtManager {
 
-  public UserLoginResponseDTO createToken(String email, List<String> roles) {
+  public UserLoginResponseDTO createToken(User user, List<String> roles) {
     var calendar = Calendar.getInstance();
     calendar.add(Calendar.DAY_OF_MONTH, SecurityConstant.JWT_EXP_DAYS);
 
     var jwt =
         Jwts.builder()
-            .setSubject(email)
+            .setSubject(user.getEmail())
             .setExpiration(calendar.getTime())
             .claim(SecurityConstant.JWT_ROLE_KEY, roles)
+            .claim("id", user.getId())
             .signWith(SignatureAlgorithm.HS512, SecurityConstant.API_KEY.getBytes())
             .compact();
 

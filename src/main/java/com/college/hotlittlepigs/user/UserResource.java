@@ -74,10 +74,10 @@ public class UserResource {
     var auth = authManager.authenticate(token);
     SecurityContextHolder.getContext().setAuthentication(auth);
 
-    var userLogin =
+    var userLoginResponse =
         userService.login((org.springframework.security.core.userdetails.User) auth.getPrincipal());
 
-    return ResponseEntity.ok(jwtManager.createToken(userLogin.getEmail(), userLogin.getRoles()));
+    return ResponseEntity.ok(userLoginResponse);
   }
 
   @Secured({"ROLE_ADMIN", "ROLE_MANAGER"})
