@@ -1,0 +1,15 @@
+version: '3.3'
+
+services:
+  pig-mysql:
+    image: mysql:5.7
+    container_name: pig-mysql
+    volumes:
+      - /home/volumes/mysql:/var/lib/mysql
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 123
+      MYSQL_DATABASE: little_pigs
+      MYSQL_PASSWORD: 123

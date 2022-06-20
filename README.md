@@ -14,9 +14,19 @@
 ## :link: Useful links
 - [Front-end Repository](https://github.com/Esquenta-Porquinho/front-end)
 - [Documentation Repository](https://github.com/Esquenta-Porquinho/documentation)
-- [Another good link]()
 ***
 
+## Running
+```bash
+# Starts a Mysql 5.7 Database binding port 3306
+make up.db.dev 
+make down.db.dev
+
+# Cleans docker stuff after containers are stopped
+make clean   
+```
+
+  
 ## 🤝 Contributing
 
 Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/Esquenta-Porquinho/back-end/issues). 
